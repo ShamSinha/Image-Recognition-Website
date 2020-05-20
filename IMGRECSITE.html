@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>ImgREC</title>
+</head>
+<body>
+<script>
+    let loadFile = function(event) {
+        let image = document.getElementById('output');
+        image.src = URL.createObjectURL(event.target.files[0]);
+    };
+</script>
+<h1>Image Recognition Website</h1>
+<br>
+<p>Upload an Image to get Recognised from Machine learning Algorithms</p>
+<br>
+
+<input type="file" id="myFile" name="filename" accept="image/*" onchange="loadFile(event)" >
+<input type="submit" value="Upload">
+<br>
+<br>
+<br>
+<p><img id="output" width="350" /></p>
+
+</body>
+</html>
