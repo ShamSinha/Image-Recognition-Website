@@ -95,6 +95,8 @@ def upload():
         f.save(file_path)
         min_dist,identity = who_is_it(file_path, database, FRmodel)
         result=str(identity)
+        if os.path.exists(file_path):
+            os.remove(file_path)
         return result
     return None
 
