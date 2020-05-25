@@ -62,17 +62,6 @@ database = {}
 database["younes"] = img_to_encoding("images/younes.jpg", FRmodel)
 database["andrew"] = img_to_encoding("images/andrew.jpg", FRmodel)
 
-def verify(image_path, identity, database, model): 
-    encoding = img_to_encoding(image_path, model)
-    dist = np.linalg.norm(encoding-database[identity])
-    if (dist<0.7):
-        print("It's " + str(identity) + ", welcome in!")
-        door_open = True
-    else:
-        print("It's not " + str(identity) + ", please go away")
-        door_open = False
-    return dist, door_open
-
 def who_is_it(image_path, database, model):
     encoding = img_to_encoding(image_path, model)
     min_dist = 100
