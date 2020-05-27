@@ -1,5 +1,3 @@
-#### PART OF THIS CODE IS USING CODE FROM VICTOR SY WANG: https://github.com/iwantooxxoox/Keras-OpenFace/blob/master/utils.py ####
-
 import tensorflow as tf
 import numpy as np
 import os
@@ -8,26 +6,16 @@ from numpy import genfromtxt
 from tensorflow.keras.layers import Conv2D, ZeroPadding2D, Activation, Input, concatenate
 from tensorflow.keras.models import Model
 from tensorflow.keras.layers import BatchNormalization
-from tensorflow.keras.layers import MaxPooling2D, AveragePooling2D
-import h5py
-import matplotlib.pyplot as plt
-
 
 _FLOATX = 'float32'
 
-def variable(value, dtype=_FLOATX, name=None):
-    v = tf.Variable(np.asarray(value, dtype=dtype), name=name)
-    _get_session().run(v.initializer)
-    return v
+
 
 def shape(x):
     return x.get_shape()
 
 def square(x):
     return tf.square(x)
-
-def zeros(shape, dtype=_FLOATX, name=None):
-    return variable(np.zeros(shape), dtype, name)
 
 def concatenate(tensors, axis=-1):
     if axis < 0:
@@ -136,9 +124,8 @@ def load_weights_from_FaceNet(FRmodel):
     for name in weights:
         if FRmodel.get_layer(name) != None:
             FRmodel.get_layer(name).set_weights(weights_dict[name])
-        elif model.get_layer(name) != None:
-            model.get_layer(name).set_weights(weights_dict[name])
-
+        
+            
 def load_weights():
     # Set weights path
     dirPath = './weights1'
@@ -171,43 +158,9 @@ def load_weights():
 
     return weights_dict
 
-'''
-def load_dataset():
-    train_dataset = h5py.File('datasets/train_happy.h5', "r")
-    train_set_x_orig = np.array(train_dataset["train_set_x"][:]) # your train set features
-    train_set_y_orig = np.array(train_dataset["train_set_y"][:]) # your train set labels
-
-    test_dataset = h5py.File('datasets/test_happy.h5', "r")
-    test_set_x_orig = np.array(test_dataset["test_set_x"][:]) # your test set features
-    test_set_y_orig = np.array(test_dataset["test_set_y"][:]) # your test set labels
-
-    classes = np.array(test_dataset["list_classes"][:]) # the list of classes
-    
-    train_set_y_orig = train_set_y_orig.reshape((1, train_set_y_orig.shape[0]))
-    test_set_y_orig = test_set_y_orig.reshape((1, test_set_y_orig.shape[0]))
-    
-    return train_set_x_orig, train_set_y_orig, test_set_x_orig, test_set_y_orig, classes
-
-haar_cascade_face = cv2.CascadeClassifier('/home/manideep/Desktop/my_project/data/haarcascade_frontalface_default.xml')
-
-
-def detect_faces(cascade, test_image, scaleFactor = 1.1):
-
-    image_copy = test_image.copy()
-    gray_image = cv2.cvtColor(image_copy, cv2.COLOR_BGR2GRAY)
-    faces_rect = cascade.detectMultiScale(gray_image, scaleFactor=scaleFactor, minNeighbors=5)
-    for (x, y, w, h) in faces_rect:
-        cv2.rectangle(image_copy, (x, y), (x+w, y+h), (0, 255, 0), 1)
-    
-
-    image= image_copy[y:y+h, x:x+w]
-    return cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
-'''
-
 
 def img_to_encoding(image_path, model):
     img2 = cv2.imread(image_path, 1)
-    #img2 = detect_faces(haar_cascade_face, img1)
     width = 96
     height = 96
     dim = (width, height)
