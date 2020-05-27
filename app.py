@@ -3,7 +3,7 @@
 """
 Created on Sun May 24 15:19:50 2020
 
-@author: manideep
+@author: shubham
 """
 
 from __future__ import division, print_function
@@ -14,7 +14,7 @@ import glob
 import re
 import numpy as np
 import tensorflow as tf
-import tensorflow.keras as keras
+print("Num GPUs Available: ", len(tf.config.experimental.list_physical_devices('GPU')))
 
 # Keras
 from tensorflow.keras.applications.imagenet_utils import preprocess_input, decode_predictions
@@ -27,22 +27,24 @@ from werkzeug.utils import secure_filename
 from gevent.pywsgi import WSGIServer
 
 
+
 #####
 
 from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import Conv2D, ZeroPadding2D, Activation, Input, concatenate
 from tensorflow.keras.models import Model
 
-from tensorflow.keras import backend as K
-K.set_image_data_format('channels_first')
 import cv2
-import os
-import numpy as np
-from numpy import genfromtxt
-import pandas as pd
-import tensorflow as tf
 from fr_utils import *
 from inception_blocks_v2 import *
+
+from tensorflow.compat.v1 import ConfigProto
+from tensorflow.compat.v1 import InteractiveSession
+
+config = ConfigProto()
+config.gpu_options.allow_growth = True
+session = InteractiveSession(config=config)
+
 
 def triplet_loss(y_true, y_pred, alpha = 0.2):
     
@@ -71,7 +73,7 @@ def who_is_it(image_path, database, model):
             min_dist = dist
             identity = name    
     if min_dist > 0.7:
-        identity="Not in database!!"
+        identity="Not in database!!  "+ str(min_dist)
         
     return min_dist, identity
 
@@ -94,12 +96,14 @@ def upload():
             basepath, 'uploads', secure_filename(f.filename))
         f.save(file_path)
         min_dist,identity = who_is_it(file_path, database, FRmodel)
-        result=str(identity)
+        result=str(identity)+ str(min_dist)
         if os.path.exists(file_path):
             os.remove(file_path)
         return result
     return None
 
 
+
+
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(debug =True)
