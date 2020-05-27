@@ -190,7 +190,7 @@ def load_dataset():
 
 haar_cascade_face = cv2.CascadeClassifier('/home/manideep/Desktop/my_project/data/haarcascade_frontalface_default.xml')
 
-
+'''
 def detect_faces(cascade, test_image, scaleFactor = 1.1):
 
     image_copy = test_image.copy()
@@ -202,12 +202,12 @@ def detect_faces(cascade, test_image, scaleFactor = 1.1):
 
     image= image_copy[y:y+h, x:x+w]
     return cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
-
+'''
 
 
 def img_to_encoding(image_path, model):
-    img1 = cv2.imread(image_path, 1)
-    img2 = detect_faces(haar_cascade_face, img1)
+    img2 = cv2.imread(image_path, 1)
+    #img2 = detect_faces(haar_cascade_face, img1)
     width = 96
     height = 96
     dim = (width, height)
