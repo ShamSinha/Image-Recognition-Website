@@ -171,7 +171,7 @@ def load_weights():
 
     return weights_dict
 
-
+'''
 def load_dataset():
     train_dataset = h5py.File('datasets/train_happy.h5', "r")
     train_set_x_orig = np.array(train_dataset["train_set_x"][:]) # your train set features
@@ -190,7 +190,7 @@ def load_dataset():
 
 haar_cascade_face = cv2.CascadeClassifier('/home/manideep/Desktop/my_project/data/haarcascade_frontalface_default.xml')
 
-'''
+
 def detect_faces(cascade, test_image, scaleFactor = 1.1):
 
     image_copy = test_image.copy()
