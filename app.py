@@ -62,8 +62,13 @@ FRmodel.compile(optimizer = 'adam', loss = triplet_loss, metrics = ['accuracy'])
 load_weights_from_FaceNet(FRmodel)
 
 
-def who_is_it(image_path, database, model):
-    encoding = img_to_encoding(image_path, model)
+def who_is_it(face_path,file_path, database, model):
+    if(cv2.imread(file_path).shape[0] <= 96 or cv2.imread(file_path).shape[1] <= 96 ):
+        encoding = img_to_encoding(file_path, model)
+        
+    else:
+        encoding = img_to_encoding(face_path,model)
+       
     min_dist = 100
     for name in database:
         dist = np.linalg.norm(encoding-database[name])
@@ -92,12 +97,64 @@ def allowed_image(filename):
     else:
         return False
     
-def convertToRGB(image):
-    return cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
 
+def SaveFace(faces,image_path,basepath,personName,ext,directory):
+    
+    facedata = os.path.join(
+                basepath, 'haarcascade_frontalface_default.xml')
+    cascade = cv2.CascadeClassifier(facedata)
+    img = cv2.imread(image_path)
+    
+    minisize = (img.shape[1],img.shape[0])
+    miniframe = cv2.resize(img, minisize)
+
+    faces = cascade.detectMultiScale(miniframe)
+    
+    for f in faces:
+        x, y, w, h = [ v for v in f ]
+        cv2.rectangle(img, (x,y), (x+w,y+h), (255,255,255))
+        sub_face = img[y:y+h, x:x+w]
+        face_path_directory = os.path.join(
+            basepath, directory)
+        os.chdir(face_path_directory)
+        cv2.imwrite(personName +"face."+ext , sub_face)
+        face_path = os.path.join(
+            basepath, directory ,personName +"face."+ext )
+        return face_path
+ 
+    
+def DetectFace(image_path,basepath):
+    
+    facedata = os.path.join(
+                basepath, 'haarcascade_frontalface_default.xml')
+    cascade = cv2.CascadeClassifier(facedata)
+    # Read the input image
+    img = cv2.imread(image_path)
+    # Convert into grayscale
+    minisize = (img.shape[1],img.shape[0])
+    miniframe = cv2.resize(img, minisize)
+    # Detect faces
+    faces1 = cascade.detectMultiScale(miniframe)
+    
+    return faces1
+    
 
 @app.route('/', methods=['GET'])
 def index():
+    basepath = os.path.dirname(__file__)
+    directory = os.path.join(basepath, 'database')
+    for filename in os.listdir(directory):
+        if filename.endswith(".png") or filename.endswith(".jpg") or filename.endswith(".jpeg"):
+            file_path = os.path.join(directory , filename)
+            face = DetectFace(file_path,basepath)
+            if len(face) == 1:
+                ext = filename.rsplit(".",1)[1]
+                face_path = SaveFace(face,file_path,basepath,filename,ext,'database')
+                database[filename] = img_to_encoding(face_path , FRmodel)
+                
+                if os.path.exists(face_path):
+                    os.remove(face_path)
+    
     return render_template('index.html')
 
 
@@ -109,8 +166,16 @@ def upload():
         file_path = os.path.join(
             basepath, 'uploads', secure_filename(f.filename))
         f.save(file_path)
-        min_dist,identity = who_is_it(file_path, database, FRmodel)
-        result=str(identity)+ str(min_dist)
+        faces = DetectFace(file_path,basepath)
+        if len(faces) == 1:   #number of faces
+            ext = f.filename.rsplit(".",1)[1]
+            face_path = SaveFace(faces,file_path,basepath,'unknown',ext,'uploads')
+            min_dist,identity = who_is_it(face_path,file_path, database, FRmodel)
+            result = str(identity)+ str(min_dist)
+            
+        else:
+            result = "Choose Single Person Face not anything else" + str(faces.shape[0])
+            
         if os.path.exists(file_path):
             os.remove(file_path)
         return result
@@ -123,22 +188,31 @@ def addDatabase():
 @app.route('/addStatus', methods =['GET','POST'])
 def add():
     if request.method == 'POST':
-        personFace = request.files['image']    # name in input tag in addDatabase.html
+        personImage = request.files['image']    # name in input tag in addDatabase.html
         personName = request.form['personName']
         personName = personName.lower()
         
         basepath = os.path.dirname(__file__)
         
         
-        if not allowed_image(personFace.filename):
+        if not allowed_image(personImage.filename):
             result1 = "Not recognised image file extension"
             
         else:
+            ext = personImage.filename.rsplit(".",1)[1]
             file_path = os.path.join(
-                basepath, 'database', personName)
-            personFace.save(file_path)
-            database[personName] = img_to_encoding(file_path , FRmodel)
-            result1 = personName + " Successfully added in Database"
+                basepath, 'database', personName +"."+ext)
+            personImage.save(file_path)
+            faces = DetectFace(file_path,basepath)
+            if len(faces) == 1:   #number of faces
+                face_path = SaveFace(faces,file_path,basepath,personName,ext,'database')
+                database[personName] = img_to_encoding(face_path , FRmodel)
+                result1 = personName + " Successfully added in Database"
+            elif len(faces) >1:
+                result1 = "More than one face are detected"
+            elif len(faces) == 0:
+                result1 = "No face are detected"
+            
     return render_template('addStatus.html', result = result1)
         
       
