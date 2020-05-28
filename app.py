@@ -45,6 +45,7 @@ config = ConfigProto()
 config.gpu_options.allow_growth = True
 session = InteractiveSession(config=config)
 
+database = {}
 
 def triplet_loss(y_true, y_pred, alpha = 0.2):
     
@@ -60,9 +61,6 @@ FRmodel = faceRecoModel(input_shape=(3, 96, 96))
 FRmodel.compile(optimizer = 'adam', loss = triplet_loss, metrics = ['accuracy'])
 load_weights_from_FaceNet(FRmodel)
 
-database = {}
-database["younes"] = img_to_encoding("images/younes.jpg", FRmodel)
-database["andrew"] = img_to_encoding("images/andrew.jpg", FRmodel)
 
 def who_is_it(image_path, database, model):
     encoding = img_to_encoding(image_path, model)
@@ -81,6 +79,22 @@ def who_is_it(image_path, database, model):
 ########
 
 app = Flask(__name__)
+
+app.config["ALLOWED_IMAGE_EXTENSION"] = ["PNG","JPG","JPEG"]
+
+def allowed_image(filename):
+    if not "." in filename :
+        return False
+    ext = filename.rsplit(".",1)[1]
+    
+    if ext.upper() in app.config["ALLOWED_IMAGE_EXTENSION"]:
+        return True
+    else:
+        return False
+    
+def convertToRGB(image):
+    return cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
+
 
 @app.route('/', methods=['GET'])
 def index():
@@ -102,8 +116,32 @@ def upload():
         return result
     return None
 
+@app.route('/add', methods=['GET'])
+def addDatabase():
+    return render_template('addDatabase.html')
 
-
+@app.route('/addStatus', methods =['GET','POST'])
+def add():
+    if request.method == 'POST':
+        personFace = request.files['image']    # name in input tag in addDatabase.html
+        personName = request.form['personName']
+        personName = personName.lower()
+        
+        basepath = os.path.dirname(__file__)
+        
+        
+        if not allowed_image(personFace.filename):
+            result1 = "Not recognised image file extension"
+            
+        else:
+            file_path = os.path.join(
+                basepath, 'database', personName)
+            personFace.save(file_path)
+            database[personName] = img_to_encoding(file_path , FRmodel)
+            result1 = personName + " Successfully added in Database"
+    return render_template('addStatus.html', result = result1)
+        
+      
 
 if __name__ == '__main__':
     app.run(debug =True)
