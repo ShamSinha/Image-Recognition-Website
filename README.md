@@ -1,1 +1,1 @@
-# Image-Recognition-Website running on Tensorflow GPU
+# Face-Recognition-Website running on Tensorflow GPU
