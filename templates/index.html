@@ -1,6 +1,19 @@
 {% extends "base.html" %} {% block content %}
 
-<h2>Image Classifier</h2>
+<style>
+    h3 {padding-left: 50px;}
+    div {
+        padding-left: 50px;
+    }
+    
+</style>
+<script src="/js/main.js"></script>
+<a href = "/add"><button type="button">Add People in Database</button></a>
+<br>
+<br>
+<br>
+<h3>Upload an Image to get Recognised from Machine learning Algorithms</h3>
+<br>
 
 <div>
     <form id="upload-file" method="post" enctype="multipart/form-data">
