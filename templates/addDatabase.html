@@ -1,0 +1,49 @@
+{% extends "base.html" %} {% block content %}
+
+<style>
+    h1 {padding-left: 50px;}
+    div {
+        padding-left: 50px;
+    }
+    
+</style>
+
+<script>
+let loadFile = function(event) {
+        let image = document.getElementById('output');
+        image.src = URL.createObjectURL(event.target.files[0]);
+};
+    
+</script>
+<a href = "/"><button type="button">Back to Predict</button></a>
+<br>
+<br>
+<h1>Add Person's Face in Database</h1>
+<br>
+
+<div>
+    <form action = "http://127.0.0.1:5000/addStatus" id="upload-database" method="post" enctype="multipart/form-data">
+        <label for="personUpload" class="upload-label">
+            Person Image
+        </label>
+        <br>
+        <input type="file" name="image" id="personUpload" accept=".png, .jpg, .jpeg" onchange="loadFile(event)" >
+        <br>
+         <p><img id="output" width="300" /></p>
+        <br>
+        <label for="nameUpload" class="upload-label">
+            Person Name
+        </label><br>
+        <input type="text" name="personName" id="nameUpload">
+        <br> 
+        <br>
+        <input class="btn" type="submit" value = "Add">   
+    </form>    
+    </div>
+    
+    
+</div>
+
+
+
+{% endblock %}
