@@ -206,6 +206,8 @@ def add():
             if len(faces) == 1:   #number of faces
                 face_path = SaveFace(faces,file_path,basepath,personName,ext,'database')
                 database[personName] = img_to_encoding(face_path , FRmodel)
+                if os.path.exists(face_path):
+                    os.remove(face_path)
                 result1 = personName + " Successfully added in Database"
             elif len(faces) >1:
                 result1 = "More than one face are detected"
