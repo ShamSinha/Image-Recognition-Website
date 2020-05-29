@@ -9,6 +9,8 @@ from tensorflow.keras.layers import BatchNormalization
 from tensorflow.keras.layers import MaxPooling2D, AveragePooling2D
 import fr_utils
 from tensorflow.keras.layers import Lambda, Flatten, Dense
+from tensorflow.keras import backend as K
+K.set_image_data_format('channels_first')
 
 def inception_block_1a(X):
     """
