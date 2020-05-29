@@ -95,10 +95,10 @@ def SaveFace(faces,image_path,basepath,personName,ext,directory):
     cascade = cv2.CascadeClassifier(facedata)
     img = cv2.imread(image_path)
     
-    minisize = (img.shape[1],img.shape[0])
-    miniframe = cv2.resize(img, minisize)
-
-    faces = cascade.detectMultiScale(miniframe)
+    gray_image = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+    
+    # Applying the haar classifier to detect faces
+    faces = cascade.detectMultiScale(gray_image, 1.1,4)
     
     for f in faces:
         x, y, w, h = [ v for v in f ]
@@ -121,10 +121,10 @@ def DetectFace(image_path,basepath):
     # Read the input image
     img = cv2.imread(image_path)
     # Convert into grayscale
-    minisize = (img.shape[1],img.shape[0])
-    miniframe = cv2.resize(img, minisize)
-    # Detect faces
-    faces1 = cascade.detectMultiScale(miniframe)
+    gray_image = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+    
+    # Applying the haar classifier to detect faces
+    faces1 = cascade.detectMultiScale(gray_image,1.1, 4)
     
     return faces1
     
