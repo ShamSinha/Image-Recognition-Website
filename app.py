@@ -140,7 +140,7 @@ def index():
             if len(face) == 1:
                 ext = filename.rsplit(".",1)[1]
                 face_path = SaveFace(face,file_path,basepath,filename,ext,'database')
-                database[filename] = img_to_encoding(face_path , FRmodel)
+                database[filename.rsplit(".",1)[0]] = img_to_encoding(face_path , FRmodel)
                 
                 if os.path.exists(face_path):
                     os.remove(face_path)
