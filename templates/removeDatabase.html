@@ -1,0 +1,34 @@
+{% extends "base.html" %} {% block content %}
+
+<style>
+    h1 {padding-left: 50px;}
+    div {
+        padding-left: 50px;
+    }
+    
+</style>
+
+
+<a href = "/"><button type="button">Back to Predict</button></a>
+<br>
+<br>
+<h1>Remove a person from Database</h1>
+<br>
+
+<div>
+    <form action = "/removeStatus" id="upload-database" method="post" enctype="multipart/form-data">
+        <label for="nameUpload" class="upload-label">
+            Person Name
+        </label>
+        <br>
+        <input type="text" name="personName" id="nameUpload">
+        <br> 
+        <br>
+        <input class="btn" type="submit" value = "Remove">   
+    </form>    
+    </div>
+</div>
+
+
+
+{% endblock %}
