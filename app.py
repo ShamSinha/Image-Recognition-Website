@@ -126,6 +126,10 @@ def upload():
 def addDatabase():
     return render_template('addDatabase.html')
 
+@app.route('/remove', methods=['GET'])
+def removeDatabase():
+    return render_template('removeDatabase.html')
+
 @app.route('/addStatus', methods =['GET','POST'])
 def add():
     if request.method == 'POST':
@@ -143,6 +147,25 @@ def add():
         if os.path.exists(file_path):
             os.remove(file_path)
         result = personName + " Successfully added in Database"
+            
+    return render_template('addStatus.html', result = result)
+
+
+@app.route('/removeStatus', methods =['GET','POST'])
+def remove():
+    if request.method == 'POST':
+        personName = request.form['personName']
+        personName = personName.lower()
+        basepath = os.path.dirname(__file__)
+        file_path = os.path.join(basepath, 'database', personName +"."+"jpg")
+        if os.path.exists(file_path):
+            os.remove(file_path)
+            del database[personName]
+            result = personName + " Successfully removed from Database"
+        else:
+            result = "The person is not in Database!!"
+            
+        
             
     return render_template('addStatus.html', result = result)
         
