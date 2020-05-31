@@ -1,8 +1,9 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-Created on Sun May 24 15:19:50 2020
-@author: shubham
+Created on Sat May 30 20:09:07 2020
+
+@author: manideep
 """
 
 from __future__ import division, print_function
@@ -62,8 +63,8 @@ def who_is_it(face_path, database, model):
         if (dist<min_dist):
             min_dist = dist
             identity = name    
-    if min_dist > 0.7:
-        identity="Not in database!!  "+ str(min_dist)
+    if min_dist > 0.9:
+        identity="Not in database!!  "
         
     return min_dist, identity
 
@@ -79,16 +80,23 @@ def SaveFace(file_path,basepath,personName,ext,directory):
     img = cv2.imread(file_path)
     gray_image = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
     faces = cascade.detectMultiScale(gray_image,1.1, 4)
-   
+    face_paths=[]
+    print(file_path)
+    i=0
     for f in faces:
         x, y, w, h = [ v for v in f ]
         cv2.rectangle(img, (x,y), (x+w,y+h), (255,255,255))
         sub_face = img[y:y+h, x:x+w]
         face_path_directory = os.path.join(basepath, directory)
         os.chdir(face_path_directory)
+        if directory=='uploads' :
+            personName=personName+str(i)
         cv2.imwrite(personName+"."+ext , sub_face)
-        face_path = os.path.join(basepath, directory ,personName +"."+ext )
-        return face_path
+        face_paths.append(os.path.join(basepath, directory ,personName +"."+ext ))
+        i=i+1
+    print(face_paths)
+        
+    return face_paths
      
 
 @app.route('/', methods=['GET'])
@@ -110,15 +118,16 @@ def upload():
         file_path = os.path.join( basepath, 'uploads', secure_filename(f.filename))
         f.save(file_path)
         ext = f.filename.rsplit(".",1)[1]
-        face_path = SaveFace(file_path,basepath,'unknown',ext,'uploads')
-        min_dist,identity = who_is_it(face_path, database, FRmodel)
-        result = str(identity)+ " "+str(min_dist)
-            
-            
+        result=""
+        face_paths = SaveFace(file_path,basepath,'unknown',ext,'uploads')
+        for face_path in face_paths:
+            min_dist,identity = who_is_it(face_path, database, FRmodel)
+            result = result+"\n"+str(identity)+ " "+str(min_dist)
+                
+            if os.path.exists(face_path):
+                os.remove(face_path)
         if os.path.exists(file_path):
             os.remove(file_path)
-        if os.path.exists(face_path):
-            os.remove(face_path)
         return result
     return None
 
@@ -143,7 +152,7 @@ def add():
         file_path = os.path.join(basepath, 'database', "unknown" +"."+ext)
         personImage.save(file_path)
         face_path = SaveFace(file_path,basepath,personName,ext,'database')
-        database[personName] = img_to_encoding(face_path , FRmodel)
+        database[personName] = img_to_encoding(face_path[0] , FRmodel)
         if os.path.exists(file_path):
             os.remove(file_path)
         result = personName + " Successfully added in Database"
@@ -167,7 +176,7 @@ def remove():
             
         
             
-    return render_template('addStatus.html', result = result)
+    return render_template('removeStatus.html', result = result)
         
       
 
