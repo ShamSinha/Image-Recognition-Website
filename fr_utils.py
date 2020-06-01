@@ -164,6 +164,7 @@ def img_to_encoding(image_path, model):
     width = 96
     height = 96
     dim = (width, height)
+    
     img3 = cv2.resize(img2, dim)
     img = img3[...,::-1]
     img = np.around(np.transpose(img, (2,0,1))/255.0, decimals=12)

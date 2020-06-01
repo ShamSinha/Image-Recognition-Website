@@ -1,8 +1,9 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-Created on Sun May 24 15:19:50 2020
-@author: shubham
+Created on Sat May 30 20:09:07 2020
+
+@author: manideep
 """
 
 from __future__ import division, print_function
@@ -52,12 +53,9 @@ FRmodel.compile(optimizer = 'adam', loss = triplet_loss, metrics = ['accuracy'])
 load_weights_from_FaceNet(FRmodel)
 
 
-def who_is_it(face_path,file_path, database, model):
-    if(cv2.imread(file_path).shape[0] <= 96 or cv2.imread(file_path).shape[1] <= 96 ):
-        encoding = img_to_encoding(file_path, model)
-        
-    else:
-        encoding = img_to_encoding(face_path,model)
+def who_is_it(face_path, database, model):
+    
+    encoding = img_to_encoding(face_path, model)
        
     min_dist = 100
     for name in database:
@@ -65,8 +63,8 @@ def who_is_it(face_path,file_path, database, model):
         if (dist<min_dist):
             min_dist = dist
             identity = name    
-    if min_dist > 0.7:
-        identity="Not in database!!  "+ str(min_dist)
+    if min_dist > 0.9:
+        identity="Not in database!!  "
         
     return min_dist, identity
 
@@ -75,75 +73,39 @@ def who_is_it(face_path,file_path, database, model):
 
 app = Flask(__name__)
 
-app.config["ALLOWED_IMAGE_EXTENSION"] = ["PNG","JPG","JPEG"]
-
-def allowed_image(filename):
-    if not "." in filename :
-        return False
-    ext = filename.rsplit(".",1)[1]
+def SaveFace(file_path,basepath,personName,ext,directory):
     
-    if ext.upper() in app.config["ALLOWED_IMAGE_EXTENSION"]:
-        return True
-    else:
-        return False
-    
-
-def SaveFace(faces,image_path,basepath,personName,ext,directory):
-    
-    facedata = os.path.join(
-                basepath, 'haarcascade_frontalface_default.xml')
-    cascade = cv2.CascadeClassifier(facedata)
-    img = cv2.imread(image_path)
-    
+    facedata = os.path.join(basepath, 'haarcascade_frontalface_default.xml')
+    cascade = cv2.CascadeClassifier(facedata)   
+    img = cv2.imread(file_path)
     gray_image = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
-    
-    # Applying the haar classifier to detect faces
-    faces = cascade.detectMultiScale(gray_image, 1.1,4)
-    
+    faces = cascade.detectMultiScale(gray_image,1.1, 4)
+    face_paths=[]
+    print(file_path)
+    i=0
     for f in faces:
         x, y, w, h = [ v for v in f ]
         cv2.rectangle(img, (x,y), (x+w,y+h), (255,255,255))
         sub_face = img[y:y+h, x:x+w]
-        face_path_directory = os.path.join(
-            basepath, directory)
+        face_path_directory = os.path.join(basepath, directory)
         os.chdir(face_path_directory)
-        cv2.imwrite(personName +"face."+ext , sub_face)
-        face_path = os.path.join(
-            basepath, directory ,personName +"face."+ext )
-        return face_path
- 
-    
-def DetectFace(image_path,basepath):
-    
-    facedata = os.path.join(
-                basepath, 'haarcascade_frontalface_default.xml')
-    cascade = cv2.CascadeClassifier(facedata)
-    # Read the input image
-    img = cv2.imread(image_path)
-    # Convert into grayscale
-    gray_image = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
-    
-    # Applying the haar classifier to detect faces
-    faces1 = cascade.detectMultiScale(gray_image,1.1, 4)
-    
-    return faces1
-    
+        if directory=='uploads' :
+            personName=personName+str(i)
+        cv2.imwrite(personName+"."+ext , sub_face)
+        face_paths.append(os.path.join(basepath, directory ,personName +"."+ext ))
+        i=i+1
+    print(face_paths)
+        
+    return face_paths
+     
 
 @app.route('/', methods=['GET'])
 def index():
     basepath = os.path.dirname(__file__)
     directory = os.path.join(basepath, 'database')
-    for filename in os.listdir(directory):
-        if filename.endswith(".png") or filename.endswith(".jpg") or filename.endswith(".jpeg"):
-            file_path = os.path.join(directory , filename)
-            face = DetectFace(file_path,basepath)
-            if len(face) == 1:
-                ext = filename.rsplit(".",1)[1]
-                face_path = SaveFace(face,file_path,basepath,filename,ext,'database')
-                database[filename.rsplit(".",1)[0]] = img_to_encoding(face_path , FRmodel)
-                
-                if os.path.exists(face_path):
-                    os.remove(face_path)
+    for face_file in os.listdir(directory):
+        face_path = os.path.join(directory , face_file)
+        database[face_file.rsplit(".",1)[0]] = img_to_encoding(face_path , FRmodel)        
     
     return render_template('index.html')
 
@@ -153,19 +115,17 @@ def upload():
     if request.method == 'POST':
         f = request.files['file']
         basepath = os.path.dirname(__file__)
-        file_path = os.path.join(
-            basepath, 'uploads', secure_filename(f.filename))
+        file_path = os.path.join( basepath, 'uploads', secure_filename(f.filename))
         f.save(file_path)
-        faces = DetectFace(file_path,basepath)
-        if len(faces) == 1:   #number of faces
-            ext = f.filename.rsplit(".",1)[1]
-            face_path = SaveFace(faces,file_path,basepath,'unknown',ext,'uploads')
-            min_dist,identity = who_is_it(face_path,file_path, database, FRmodel)
-            result = str(identity)+ str(min_dist)
-            
-        else:
-            result = "Choose Single Person Face not anything else" + str(faces.shape[0])
-            
+        ext = f.filename.rsplit(".",1)[1]
+        result=""
+        face_paths = SaveFace(file_path,basepath,'unknown',ext,'uploads')
+        for face_path in face_paths:
+            min_dist,identity = who_is_it(face_path, database, FRmodel)
+            result = result+"\n"+str(identity)+ " "+str(min_dist)
+                
+            if os.path.exists(face_path):
+                os.remove(face_path)
         if os.path.exists(file_path):
             os.remove(file_path)
         return result
@@ -175,37 +135,48 @@ def upload():
 def addDatabase():
     return render_template('addDatabase.html')
 
+@app.route('/remove', methods=['GET'])
+def removeDatabase():
+    return render_template('removeDatabase.html')
+
 @app.route('/addStatus', methods =['GET','POST'])
 def add():
     if request.method == 'POST':
-        personImage = request.files['image']    # name in input tag in addDatabase.html
+        personImage = request.files['image']
         personName = request.form['personName']
         personName = personName.lower()
         
         basepath = os.path.dirname(__file__)
         
-        
-        if not allowed_image(personImage.filename):
-            result1 = "Not recognised image file extension"
+        ext = personImage.filename.rsplit(".",1)[1]
+        file_path = os.path.join(basepath, 'database', "unknown" +"."+ext)
+        personImage.save(file_path)
+        face_path = SaveFace(file_path,basepath,personName,ext,'database')
+        database[personName] = img_to_encoding(face_path[0] , FRmodel)
+        if os.path.exists(file_path):
+            os.remove(file_path)
+        result = personName + " Successfully added in Database"
             
+    return render_template('addStatus.html', result = result)
+
+
+@app.route('/removeStatus', methods =['GET','POST'])
+def remove():
+    if request.method == 'POST':
+        personName = request.form['personName']
+        personName = personName.lower()
+        basepath = os.path.dirname(__file__)
+        file_path = os.path.join(basepath, 'database', personName +"."+"jpg")
+        if os.path.exists(file_path):
+            os.remove(file_path)
+            del database[personName]
+            result = personName + " Successfully removed from Database"
         else:
-            ext = personImage.filename.rsplit(".",1)[1]
-            file_path = os.path.join(
-                basepath, 'database', personName +"."+ext)
-            personImage.save(file_path)
-            faces = DetectFace(file_path,basepath)
-            if len(faces) == 1:   #number of faces
-                face_path = SaveFace(faces,file_path,basepath,personName,ext,'database')
-                database[personName] = img_to_encoding(face_path , FRmodel)
-                if os.path.exists(face_path):
-                    os.remove(face_path)
-                result1 = personName + " Successfully added in Database"
-            elif len(faces) >1:
-                result1 = "More than one face are detected"
-            elif len(faces) == 0:
-                result1 = "No face are detected"
+            result = "The person is not in Database!!"
             
-    return render_template('addStatus.html', result = result1)
+        
+            
+    return render_template('removeStatus.html', result = result)
         
       
 
