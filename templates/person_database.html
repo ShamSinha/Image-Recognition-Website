@@ -1,0 +1,29 @@
+{% extends "base.html" %} {% block content %}
+
+<style>
+    img{ height: 200px;
+    }
+    div{
+    display:inline-block;}
+    h1{padding-left:200px;}
+
+    
+    
+</style>
+<link href="{{ url_for('static', filename='css/data.css') }}" rel="stylesheet">   
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+
+<h1>{{person.upper()}}</h1>
+<br>
+<br>
+
+{% for image_name in image_names %}
+<div class="w3-container" style = "margin:25px 15px"  >
+    <div class="w3-hover-shadow"  style="border:16px solid white">
+        <img src=" {{url_for('send_all_image', filename = image_name , person = person)}}" >
+    </div>
+</div>
+
+{% endfor %}
+
+{% endblock %}

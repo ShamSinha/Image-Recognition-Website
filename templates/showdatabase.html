@@ -1,0 +1,58 @@
+{% extends "base.html" %} {% block content %}
+
+<style>
+    img{ height: 100px ;
+    vertical-align: middle ;
+    padding-right: 50px;}
+    h1{padding-left:100px;}
+    h3{padding-left:100px;}
+    a{padding-left:100px;}
+</style>
+<link href="{{ url_for('static', filename='css/data.css') }}" rel="stylesheet">   
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<script>
+    function myFunction() {
+      // Declare variables
+      var input, filter, ul, li, a, i, txtValue;
+      input = document.getElementById('myInput');
+      filter = input.value.toUpperCase();
+      ul = document.getElementById("myUL");
+      li = ul.getElementsByTagName("div");
+    
+      // Loop through all list items, and hide those who don't match the search query
+      for (i = 0; i < li.length; i++) {
+        a = li[i].getElementsByTagName("a")[0];
+        txtValue = a.textContent || a.innerText;
+        if (txtValue.toUpperCase().indexOf(filter) > -1) {
+          li[i].style.display = "";
+        } else {
+          li[i].style.display = "none";
+        }
+      }
+    }
+</script>
+<h1>Database</h1>
+<br>
+<div style = "display:inline-block">
+<a href = "/add"><button type="button">Add People in Database</button></a>
+<a href = "/"><button type="button">Back to Predict</button></a>
+</div>
+<br>
+<br>
+<input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for names..">
+<br>
+<br>
+<br>
+<ul id ="myUL" >
+{% for person_name in person_names %}
+<div class="w3-hover-shadow" >
+    <form action="/removed" method="post" enctype="multipart/form-data">
+    <img src=" {{url_for('send_image', filename = person_name)}}" >
+    <a href = "/showAllInDatabase/{{person_name.rsplit(".",1)[0]}}" >{{person_name.rsplit(".",1)[0].upper()}}</a>  
+    <input type="hidden" name="personName" value={{person_name.rsplit(".",1)[0]}} />
+    <input type="submit"  value = "Remove" style= "float:right;border:20px solid white" class="w3-button w3-red"> 
+    </form>
+</div>
+{% endfor %}
+</ul>
+{% endblock %}
