@@ -1,10 +1,9 @@
 {% extends "base.html" %} {% block content %}
 
 <style>
-    h1 {padding-left: 50px;}
-    div {
-        padding-left: 50px;
-    }
+    h1 {padding-left: 100px;}
+  
+    a{padding-left:100px;}
     
 </style>
 
@@ -15,14 +14,17 @@ let loadFile = function(event) {
 };
     
 </script>
-<a href = "/"><button type="button">Back to Predict</button></a>
+<div style ="display:inline-block">
+    <a href = "/database"><button type="button">Back to Database</button></a>
+    <a href = "/"><button type="button">Back to Predict</button></a>
+</div>
 <br>
 <br>
 <h1>Add Person's Face in Database</h1>
 <br>
 
-<div>
-    <form action = "http://127.0.0.1:5000/addStatus" id="upload-database" method="post" enctype="multipart/form-data">
+<div style="padding-left: 100px">
+    <form action = "/addStatus" id="upload-database" method="post" enctype="multipart/form-data">
         <label for="personUpload" class="upload-label">
             Person Image
         </label>
