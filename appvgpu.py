@@ -84,6 +84,13 @@ def allowed_image(filename):
 
 def SaveFace(do_predict,img,faces,directory,personName,count,ext):
     
+    ### do_predict(boolean) = to recognise a person for a given image
+    ### img = cv2.imread(given_image)
+    ### faces = faces detected from the classifier 
+    ### directory = save cropped face from given image in this directory
+    ### personName + "|" + str(count+1) = entry in database as this name
+    ### count = number of images present of personName guy
+    
     basepath = os.path.dirname(__file__)
     
     for f in faces:
