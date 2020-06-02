@@ -1,21 +1,19 @@
 {% extends "base.html" %} {% block content %}
 
 <style>
-    h3 {padding-left: 50px;}
-    div {
-        padding-left: 50px;
-    }
+    h3 {padding-left: 75px;}
+
     
 </style>
 <script src="/js/main.js"></script>
 <br>
-<a href = "/database"><button type="button">Go To Database</button></a>
+<a href = "/database"><button type="button" style = "margin-left: 75px;">Go To Database</button></a>
 <br>
 <br>
 <h3>Upload an Image to get Recognised from Machine learning Algorithms</h3>
 <br>
 
-<div>
+<div style = "padding-left: 100px;">
     <form id="upload-file" method="post" enctype="multipart/form-data">
         <label for="imageUpload" class="upload-label">
             Choose...
