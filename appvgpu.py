@@ -225,16 +225,16 @@ def upload():
         if len(faces) == 1:   #number of faces
             ext = f.filename.rsplit(".",1)[1]
             img = cv2.imread(file_path)
-            result3 = SaveFace(True,img,faces,'uploads','unknown',00,ext)
+            result = SaveFace(True,img,faces,'uploads','unknown',00,ext)
      
         else:
-            result3 = "Choose Single Person Face not anything else" 
+            result = "Choose Single Person Face not anything else" 
             
         if os.path.exists(file_path):
             os.remove(file_path)
         
-        print(result3)
-        return result3
+        print(result)
+        return result
     return None
 
 @app.route('/add', methods=['GET'])
