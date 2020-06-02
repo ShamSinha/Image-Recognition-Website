@@ -212,6 +212,10 @@ def index():
     return render_template('index.html')
 
 
+@app.route('/ready_for_prediction', methods=['GET'])
+def ready_for_prediction():
+    return render_template('index.html')
+
 @app.route('/predict', methods=['GET', 'POST'])
 def upload():
     if request.method == 'POST':
