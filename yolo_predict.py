@@ -188,6 +188,7 @@ input_w, input_h = 416, 416
 photo_filename = 'photos/zebra.jpg'
 # load and prepare image
 image, image_w, image_h = load_image_pixels(photo_filename, (input_w, input_h))
+image=np.transpose(image,(0,2,3,1))
 # make prediction
 yhat = model.predict(image)
 # summarize the shape of the list of arrays
