@@ -5,6 +5,7 @@
     vertical-align: middle ;
     padding-right: 50px;}
     h1{padding-left:100px;}
+    h5{padding-left:100px;}
     h3{padding-left:100px;}
     a{padding-left:100px;}
 </style>
@@ -30,15 +31,19 @@
         }
       }
     }
+    function showdiv(){
+        document.getElementById("showfor5sec").style.visibility = "hidden" ;
+    }
+    setTimeout("showdiv()",2000)
+    
 </script>
 <h1>Database</h1>
-<br>
 <div style = "display:inline-block">
 <a href = "/add"><button type="button">Add People in Database</button></a>
 <a href = "/ready_for_prediction"><button type="button">Back to Predict</button></a>
 </div>
 <br>
-<br>
+<div id="showfor5sec" style = "visibility:visible"><h5>{{result}}</h5></div>
 <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for names..">
 <br>
 <br>
@@ -46,7 +51,7 @@
 <ul id ="myUL" >
 {% for person_name in person_names %}
 <div class="w3-hover-shadow" >
-    <form action="/removed" method="post" enctype="multipart/form-data">
+    <form action="/database" method="post" enctype="multipart/form-data">
     <img src=" {{url_for('send_image', filename = person_name)}}" >
     <a href = "/showAllInDatabase/{{person_name.rsplit(".",1)[0]}}" >{{person_name.rsplit(".",1)[0].upper()}}</a>  
     <input type="hidden" name="personName" value={{person_name.rsplit(".",1)[0]}} />
