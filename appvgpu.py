@@ -59,7 +59,7 @@ def who_is_it(img3 , database, model):
         if (dist<min_dist):
             min_dist = dist
             identity = name    
-    if min_dist > 0.72:
+    if min_dist > 0.55:
         identity=" not present in database!! "
         
     return min_dist, identity
@@ -83,13 +83,11 @@ def allowed_image(filename):
     
 
 def SaveFace(do_predict,img,faces,directory,personName,count,ext):
+    ### do_predict (boolean type)  == true if we are doing prediction that can be before recognition and before add in database
+    ### img = given image
+    ### faces = faces from image
+    ### directory = image is saved in given directory
     
-    ### do_predict(boolean) = to recognise a person for a given image
-    ### img = cv2.imread(given_image)
-    ### faces = faces detected from the classifier 
-    ### directory = save cropped face from given image in this directory
-    ### personName + "|" + str(count+1) = entry in database as this name
-    ### count = number of images present of personName guy
     
     basepath = os.path.dirname(__file__)
     
@@ -113,43 +111,52 @@ def SaveFace(do_predict,img,faces,directory,personName,count,ext):
         # if personName == 'unknown' it means we are only predicting test not adding in after prediction
         if(do_predict) :      # this is true if we want to add image in database from website as well as when we want to predict
             min_dist,identity = who_is_it(img3, database, FRmodel)
-            if min_dist <= 0.72 and personName == 'unknown':
-                result = "He is "+ identity + " " + "with min_dist: " + str(min_dist)
-                print(result)
-            if min_dist > 0.72 and personName == 'unknown':
-                result = "Face Recognition System is not able to recognise may be"+ identity + "with min_dist: " + str(min_dist)
-                print(result)
-            if min_dist <= 0.72 and personName != 'unknown' :
-                person_name_from_database = identity.rsplit("|",1)[0]
-                face_match_directory = os.path.join(basepath, 'database', person_name_from_database)
-                os.chdir(face_match_directory)  # move into directory inside 
-                no_of_same_person_image = len(os.listdir('.'))   # number of same person image files in his/her directory
-                cv2.imwrite(str(no_of_same_person_image + 1)+"."+ext,img)
-                database[person_name_from_database + "|" + str(no_of_same_person_image + 1)] = img_to_encoding(img3 , FRmodel)
-                result = "Successfully Added in database as existing person : " + person_name_from_database + "|" + str(no_of_same_person_image + 1)
-                if os.path.exists(face_path):  # Now we remove the redundant cropped face from subdir 
-                    os.remove(face_path)
-               
-            elif min_dist > 0.72 and personName != 'unknown':
-                new_dir = os.path.join(basepath,'database',personName)
-                if not os.path.isdir(new_dir):
-                    os.mkdir(new_dir)
-                    os.chdir(new_dir)
-                    cv2.imwrite(str(1)+"."+ ext , img)
-                    os.chdir(os.path.join(basepath,'FACES'))
-                    cv2.imwrite(personName+"."+ext,img3)
-                    database[personName.lower() + "|" + str(1)] = img_to_encoding(img3 , FRmodel)
-                    result = "Successfully added in database as new person : " + personName.lower() + "|" + str(1) + " and new directory: " + personName + " are created in database directory"
-                    
+            if personName == 'unknown':   # we are doing recognition
+                if min_dist <= 0.55 :
+                    result = "He is "+ identity + " " + "with min_dist: " + str(min_dist)
+                    print(result)
                 else:
-                    no_of_same_person_image = len(os.listdir(new_dir))
-                    os.chdir(new_dir)
+                    result = "Face Recognition System is not able to recognise may be"+ identity + "with min_dist: " + str(min_dist)
+                    print(result)
+            
+            elif personName == "" :  # when we are adding a person with his face only not providing any name
+                if min_dist <= 0.55:
+                    person_name_from_database = identity.rsplit("|",1)[0]
+                    face_match_directory = os.path.join(basepath, 'database', person_name_from_database)
+                    os.chdir(face_match_directory)  # move into directory inside 
+                    no_of_same_person_image = len(os.listdir('.'))   # number of same person image files in his/her directory
                     cv2.imwrite(str(no_of_same_person_image + 1)+"."+ext,img)
-                    database[personName.lower() + "|" + str(no_of_same_person_image + 1)] = img_to_encoding(img3 , FRmodel)
-                    result = "Successfully added in database as existing person: " + personName.lower() + "|" + str(no_of_same_person_image + 1)
-                    if len(os.listdir(new_dir)) > 1 :
+                    database[person_name_from_database + "|" + str(no_of_same_person_image + 1)] = img_to_encoding(img3 , FRmodel)
+                    result = "Successfully Added in database as existing person : " + person_name_from_database + "|" + str(no_of_same_person_image + 1)
+                    if os.path.exists(face_path):  # Now we remove the redundant cropped face from subdir 
+                        os.remove(face_path)
+                
+                else:
+                    result = "Uploaded Person not found in Database!! Please provide him/her a name and Add him/her as a new guy"
+               
+            else:    # When we are providing name to the person 
+                if min_dist <= 0.55:  # we are providing name to the person but he is already in database 
+                    if identity.rsplit("|",1)[0].startswith(personName) :   # with partially-same name provided present in database
+                        person_name_from_database = identity.rsplit("|",1)[0]
+                        face_match_directory = os.path.join(basepath, 'database', person_name_from_database)
+                        os.chdir(face_match_directory)  # move into directory inside 
+                        no_of_same_person_image = len(os.listdir('.'))   # number of same person image files in his/her directory
+                        cv2.imwrite(str(no_of_same_person_image + 1)+"."+ext,img)
+                        database[person_name_from_database + "|" + str(no_of_same_person_image + 1)] = img_to_encoding(img3 , FRmodel)
+                        result = "Successfully Added in database as existing person : " + person_name_from_database + "|" + str(no_of_same_person_image + 1)
                         if os.path.exists(face_path):  # Now we remove the redundant cropped face from subdir 
                             os.remove(face_path)
+                else:   # when we add a new guy which is not present previously in database
+                    new_dir = os.path.join(basepath,'database',personName)
+                    if not os.path.isdir(new_dir):
+                        os.mkdir(new_dir)
+                        os.chdir(new_dir)
+                        cv2.imwrite(str(1)+"."+ ext , img)
+                        os.chdir(os.path.join(basepath,'FACES'))
+                        cv2.imwrite(personName+"."+ext,img3)
+                        database[personName.lower() + "|" + str(1)] = img_to_encoding(img3 , FRmodel)
+                        result = "Successfully added in database as new person : " + personName.lower() + "|" + str(1) + " and new directory: " + personName + " are created in database directory"
+                    
                                
         else:       # this is true for images present in database before starting the flask app
             database[personName.lower() + "|" + str(count)] = img_to_encoding(img3 , FRmodel)
@@ -179,26 +186,30 @@ def DetectFace(image_path):
 
 @app.route('/', methods=['GET'])
 def index():
+    
     basepath = os.path.dirname(__file__)
     
     directory = os.path.join(basepath, 'database')  # database path
     print(directory)
     
+    database.clear()
+    face_directory = os.path.join(basepath,'FACES')
+    for files in os.listdir(face_directory):  
+        os.remove(os.path.join(face_directory,files))
+    
     subdirs = os.listdir(directory)
     print(subdirs)
     for name in subdirs:  #iterate over sub-directories present in database dir 
         personDir_path = os.path.join(directory, name)  # filepath for sub-dir
-        print(personDir_path)
+        
         count = 0 ;
         files = os.listdir(personDir_path)
-        print(files)
+        
         for person in files:  # iterate over every image file present in sub-dir
-            print(person)
             if person.endswith(".png") or person.endswith(".jpg") or person.endswith(".jpeg"): 
                 
                 image_path = os.path.join(personDir_path , person)  # image_path in sub-dir
-                print(image_path)
-               
+                
                 face = DetectFace(image_path)  # detect face in image
                 
                 if len(face) == 1:   # if image satisfy per image one face then it get added in database as encodings
@@ -207,7 +218,7 @@ def index():
                     img = cv2.imread(image_path)
                     personName = name
                     result2 = SaveFace(False,img,face,'FACES',personName,count,ext) # extracted cropped face from image get saved in subdir
-    
+                    print(result2)
     print(database.keys())
     return render_template('index.html')
 
@@ -273,10 +284,11 @@ def add():
             
     return render_template('addStatus.html', result = result1)
 
-
-@app.route("/removed", methods=["GET", "POST"])
-def remove():
-    if request.method == 'POST':
+        
+@app.route('/database', methods = ['GET' , 'POST'])
+def show():
+    
+    if request.method == 'POST':   ### Remove button is pressed
         basepath = os.path.dirname(__file__)
         for key, value in request.form.items():
             if key == "personName":
@@ -305,16 +317,14 @@ def remove():
                  
                 result = person_name.upper() + " Successfully removed from Database"
         print(database.keys())
-    return render_template('removeStatus.html', result = result)
         
+    if request.method == 'GET' :    #### if database page is shown fresh
+        result = ""
         
-@app.route('/database', methods = ['GET' , 'POST'])
-def show():
     basepath = os.path.dirname(__file__)
     person_names = os.listdir(os.path.join(basepath, 'FACES'))
-    
-    return render_template('showdatabase.html', person_names = person_names)
-  
+        
+    return render_template('showdatabase.html', person_names = person_names ,result = result)
 
 @app.route('/database/<filename>')
 def send_image(filename):
