@@ -1,46 +1,85 @@
 {% extends "base.html" %} {% block content %}
 
 <style>
-    h1 {padding-left: 50px;}
+    /*h1 {padding-left: 50px;}
     div {
         padding-left: 50px;
+    }*/
+    button{
+        border-radius: 10px;
+        
     }
     
 </style>
 
 <script>
+
 let loadFile = function(event) {
         let image = document.getElementById('output');
-        image.src = URL.createObjectURL(event.target.files[0]);
+        image.src = URL.createObjectURL(document.getElementById('personUpload').files[0]);
+        $("#output").show();
+        $("#output").height(300);
+        $("#output").css("border","1px solid white");
 };
+$(document).ready(function () {
+$('#btn').click (function() {
+        var form_data = new FormData(document.getElementById('upload-database'));
+        const request = new XMLHttpRequest();
+        request.open('POST', '/addStatus');
+        
+        request.onload = () => {
+
+              // Extract JSON data from request
+              const data = JSON.parse(request.responseText);
+              console.log("recived")
+              // Update the result div
+              document.querySelector('#result').innerHTML = data.result;
+
+              document.querySelector('#result').style.display = "inline";
+              $('#output').hide();
+              document.querySelector('#result').style.visibility = "visible";
+              function showdiv(){
+                document.querySelector('#result').style.visibility = "hidden";
+              }
+              
+              setTimeout(showdiv,5000)
+          }
+        request.send(form_data);
+        return false;
+        
+        
+    });
+});
     
 </script>
-<a href = "/"><button type="button">Back to Predict</button></a>
-<br>
-<br>
-<h1>Add Person's Face in Database</h1>
-<br>
+<a href = "/"><button style="background-color: coral; color:white;"type="button" class="w3-button w3-hover-shadow " >Back to Predict</button></a>
 
-<div>
-    <form action = "/addStatus" id="upload-database" method="post" enctype="multipart/form-data">
+<div style="text-align: center;">
+<h1 style="color:white">Add Person's Face in Database</h1>
+
+    <form  id="upload-database" method="post" enctype="multipart/form-data">
         <label for="personUpload" class="upload-label">
             Person Image
         </label>
-        <br>
+        
         <input type="file" name="image" id="personUpload" accept="image/*" onchange="loadFile(event)" >
-        <br>
-         <p><img id="output" width="300" /></p>
-        <br>
-        <label for="nameUpload" class="upload-label">
+        
+         <p><img id="output" width="300" ></p>
+        
+        <label for="nameUpload" class="upload-label" >
             Person Name
         </label>
         <br>
         <input type="text" name="personName" id="nameUpload">
-        <br> 
-        <br>
-        <input class="btn" type="submit" value = "Add">   
+        
+        <!--<input id="btn" type="submit" value = "Add"> --> 
     </form>    
+    <div id="btn">
+    <button type="button" style="background-color: coral;color:white;" class="w3-button w3-hover-shadow ">Add</button> 
     </div>
+   
+    <h2 id="result" style="visibility: visible; color:white; font-size: 2em"></h2>
+
 </div>
 
 
