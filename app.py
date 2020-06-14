@@ -14,6 +14,7 @@ import glob
 import re
 import numpy as np
 import tensorflow as tf
+import random
 
 
 # Keras
@@ -69,8 +70,8 @@ def who_is_it(face, database, model):
         if (dist<min_dist):
             min_dist = dist
             identity = name    
-    if min_dist > 2:
-        identity="Not in database!!  "
+    if min_dist > 1:
+        identity=""
         
     return min_dist, identity
 
@@ -104,45 +105,64 @@ def index():
     
     return render_template('index.html')
 
+@app.route('/back_to_predict',methods=['GET'])
+def back_to_predict():
+    render_template('index.html')
+
+
 
 @app.route('/predict', methods=[ 'GET','POST'])
 def upload():
     if request.method == 'POST':
-        if os.path.exists(os.path.join(basepath,'yolo',"temp1.jpg")):
-            os.remove(os.path.join(basepath,'yolo',"temp1.jpg"))
+        c=random.randint(0,1000000000)
+        our_list=os.listdir(os.path.join(basepath,'yolo'))
+        if len(our_list) != 0:
+            filename=our_list[0]
+            our_split=filename.rsplit("_",1)[1]
+            our_num=our_split.rsplit(".",1)[0]           
+            if os.path.exists(os.path.join(basepath,'yolo',filename)):
+                os.remove(os.path.join(basepath,'yolo',filename))
+            
         f = request.files['file']
         filename=secure_filename(f.filename)
         file_path = os.path.join( basepath, 'uploads',filename)
         f.save(file_path)
         img=our_result(file_path)
-        plt.imshow(img)
+        #plt.imshow(img)
         new_dir = os.path.join(basepath,'yolo')
         #os.mkdir(new_dir)
         #os.chdir(new_dir)
-        cv2.imwrite(os.path.join(new_dir,"temp1"+"."+"jpg"),img)
-        #img_url= os.path.join( basepath, 'yolo',"temp1.jpg")
-        img_url="yolo/temp1.jpg"
+        cv2.imwrite(os.path.join(new_dir,"temp_"+str(c)+".jpg"),img)
+        img_url="yolo/temp_"+str(c)+".jpg"
         result=""
         image=cv2.imread(file_path,1)
-        faces = returnFaces(image)        
+        flag=0
+        faces = returnFaces(image) 
+        print (faces,flush=True) 
+        if(len(faces)==0):
+            flag=1
         for face in faces: 
             x, y, w, h = [ v for v in face ]
             face_image=image[y:y+h, x:x+w]
             face_image=cv2.resize(face_image,(96,96))
             min_dist,identity = who_is_it(face_image, database, FRmodel)
             result = result+str(identity)+ " "
+        
         if os.path.exists(file_path):
             os.remove(file_path)
+        if(flag==0 and  len(result.strip())==0):
+            result="No person is in Database !!"
         return jsonify({"result": result , "our_url" : img_url })
     return None
+
 
 @app.route('/add', methods=['GET','POST'])
 def addDatabase():
     return render_template('addDatabase.html')
 
-@app.route('/yolo/temp1.jpg', methods=['GET','POST'])
-def for_img():
-    return send_from_directory("yolo/", "temp1.jpg")
+@app.route("/yolo/<temp_name>", methods=['GET','POST'])
+def for_img(temp_name):
+    return send_from_directory("yolo/",temp_name)
 '''
 @app.route('/my_json', methods=['GET'])
 def Json():
@@ -176,15 +196,15 @@ def add():
             face=faces[0]
             x, y, w, h = [ v for v in face ]
             face_image=image[y:y+h, x:x+w]
-            l=len(database[personName])
             new_dir = os.path.join(basepath,'database',personName)
+            l=len(os.listdir(new_dir))            
             os.chdir(new_dir)
-            cv2.imwrite(personName+"_"+str(l)+"."+"jpg", face_image)
+            cv2.imwrite(personName+"_"+str(l+1)+"."+"jpg", face_image)
             face_image=cv2.resize(face_image,(96,96))
             database[personName].append(img_to_encoding(face_image, FRmodel))
         if os.path.exists(file_path):
             os.remove(file_path)
-        result = personName + " Successfully added in Database"
+        result = "Mr/Ms. "+personName.capitalize() + " was successfully added in  our Database"
         print(result) 
         return jsonify({"result": result})
     return None
