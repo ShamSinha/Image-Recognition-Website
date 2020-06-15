@@ -1,0 +1,58 @@
+{% extends "base.html" %} {% block content %}
+
+<style>
+    img{ height: 100px ;
+    vertical-align: middle ;
+    padding-right: 50px;}
+    h3{padding-left:100px;}
+    button{border-radius: 10px;  }
+</style>
+<link href="{{ url_for('static', filename='css/data.css') }}" rel="stylesheet">   
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<script>
+    function myFunction() {
+      // Declare variables
+      var input, filter, ul, li, a, i, txtValue;
+      input = document.getElementById('myInput');
+      filter = input.value.toUpperCase();
+      ul = document.getElementById("myUL");
+      li = ul.getElementsByTagName("div");
+    
+      // Loop through all list items, and hide those who don't match the search query
+      for (i = 0; i < li.length; i++) {
+        a = li[i].getElementsByTagName("a")[0];
+        txtValue = a.textContent || a.innerText;
+        if (txtValue.toUpperCase().indexOf(filter) > -1) {
+          li[i].style.display = "";
+        } else {
+          li[i].style.display = "none";
+        }
+      }
+    }
+</script>
+
+<div style = "display:inline-block">
+<a href = "/back_to_predict"><button type="button" style="background-color: coral;color: white;" class="w3-button w3-hover-shadow " ><i class="fa fa-arrow-left"></i> PREDICT</button></a>
+<a href = "/add" style= "padding-left:580px"><button type="button"  style="background-color: coral; color: white;" class="w3-button w3-hover-shadow " class="w3-large"><i class="fa fa-plus"></i> ADD PEOPLE</button></a>
+</div>
+<br>
+<div style="text-align: center">
+<h1 style="color: white">DATABASE</h1>
+</div>
+<br>
+<input type="text" id="myInput" onkeyup="myFunction()" placeholder="&#xF002; Search" style="font-family:Arial, FontAwesome" />
+<br>
+<br>
+<ul id ="myUL" >
+{% for person_name in person_names %}
+<div class="w3-hover-shadow"  >
+    <form action="/removed" method="post" enctype="multipart/form-data">
+      <img style="margin:10px "src=" {{url_for('send_all_image', filename = person_name+'_1.jpg' , person = person_name)}}" >
+      <a style="color:white; font-size: 1.5em;font-style: italic; text-transform: capitalize;" href = "/showAllInDatabase/{{person_name}}" >{{person_name}}</a> 
+      <input type="hidden" name="personName" value={{person_name}} />
+      <input type="submit"  value = "REMOVE"  style= "float:right; margin-top: 40px; margin-right:30px; border-radius: 10px " class="w3-button w3-red"> 
+    </form>
+</div>
+{% endfor %}
+</ul>
+{% endblock %}
