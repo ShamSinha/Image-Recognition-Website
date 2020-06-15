@@ -7,6 +7,7 @@ from tensorflow.keras.layers import Conv2D, ZeroPadding2D, Activation, Input, co
 from tensorflow.keras.models import Model
 from tensorflow.keras.layers import BatchNormalization
 
+
 _FLOATX = 'float32'
 
 
@@ -159,14 +160,8 @@ def load_weights():
     return weights_dict
 
 
-def img_to_encoding(image_path, model):
-    img2 = cv2.imread(image_path, 1)
-    width = 96
-    height = 96
-    dim = (width, height)
-    
-    img3 = cv2.resize(img2, dim)
-    img = img3[...,::-1]
+def img_to_encoding(image, model):
+    img = image[...,::-1]
     img = np.around(np.transpose(img, (2,0,1))/255.0, decimals=12)
     x_train = np.array([img])
     embedding = model.predict_on_batch(x_train)
