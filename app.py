@@ -68,7 +68,7 @@ def who_is_it(face, database, model):
         if (dist<min_dist):
             min_dist = dist
             identity = name    
-    if min_dist > 1:
+    if min_dist > 0.55:
         identity=""
         
     return min_dist, identity
