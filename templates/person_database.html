@@ -1,29 +1,23 @@
 {% extends "base.html" %} {% block content %}
 
 <style>
-    img{ height: 200px;
-    }
-    div{
-    display:inline-block;}
-    h1{padding-left:200px;}
+    
 
     
     
 </style>
-<link href="{{ url_for('static', filename='css/data.css') }}" rel="stylesheet">   
+<!--<link href="{{ url_for('static', filename='css/data.css') }}" rel="stylesheet">-->   
 
 
-<h1>{{person.upper()}}</h1>
-<br>
-<br>
+<h3 style="color: white; text-align: center;">{{person.capitalize()}}</h3>
 
+<div class="container"   >
+	<div class="row">
 {% for image_name in image_names %}
-<div class="w3-container" style = "margin:25px 15px"  >
-    <div class="w3-hover-shadow"  style="border:16px solid white">
-        <img src=" {{url_for('send_all_image', filename = image_name , person = person)}}" >
+    <div class="col-3">
+        <img width="150" height="150"  class="w3-hover-shadow" style=" margin: 10px; border: 1px solid white"src=" {{url_for('send_all_image', filename = image_name , person = person)}}" >
+    </div>
+{% endfor %}
     </div>
 </div>
-
-{% endfor %}
-
 {% endblock %}
