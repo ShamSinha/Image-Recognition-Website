@@ -24,6 +24,7 @@ $(document).ready(function () {
         readURL(this);
     });
 
+
     // Predict
     $('#btn-predict').click(function () {
         var form_data = new FormData(document.getElementById('upload-file'));
