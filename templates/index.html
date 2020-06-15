@@ -1,31 +1,41 @@
 {% extends "base.html" %} {% block content %}
 
-<h2>Image Classifier</h2>
+<style>
+button{
+        border-radius: 10px;
+        
+    }
+</style>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
-<div>
-    <form id="upload-file" method="post" enctype="multipart/form-data">
-        <label for="imageUpload" class="upload-label">
-            Choose...
-        </label>
-        <input type="file" name="file" id="imageUpload" accept=".png, .jpg, .jpeg">
-    </form>
+<a href = "/database" ><button id = "btn1" type="button"  style="background-color: coral; color: white;" class="w3-button w3-hover-shadow ">DATABASE</button></a>
+<div style="text-align: center;">
+    <h3 style="color: white; margin: 20px; font-family: serif;">Upload  Image </h3>
+    <div >
+        <form id="upload-file" method="post" enctype="multipart/form-data">
+            <label for="imageUpload" class="upload-label w3-hover-shadow">
+                Choose !!
+            </label>
+            <input type="file" name="file" id="imageUpload" accept="image/*">
+        </form>
 
-    <div class="image-section" style="display:none;">
-        <div class="img-preview">
-            <div id="imagePreview">
+        <div class="image-section" style="display:none; margin: 20px">
+            <div class="img-preview">
+                <div id="imagePreview">
+                </div>
+            </div>
+            <div>
+                <button type="button" class="w3-button w3-hover-shadow " id="btn-predict">Predict!</button>
             </div>
         </div>
-        <div>
-            <button type="button" class="btn btn-primary btn-lg " id="btn-predict">Predict!</button>
-        </div>
+
+        <div class="loader" style="display:none; "></div>
+
+        <h3 id="result" style="color: white; text-transform: capitalize; ">
+            <span></span>
+        </h3>
+
     </div>
-
-    <div class="loader" style="display:none;"></div>
-
-    <h3 id="result">
-        <span> </span>
-    </h3>
-
 </div>
 
 {% endblock %}

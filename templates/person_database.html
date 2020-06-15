@@ -1,0 +1,25 @@
+{% extends "base.html" %} {% block content %}
+
+<style>
+    
+button{border-radius: 10px;  }
+    
+    
+</style>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+ 
+
+<a href = "/database"><button type="button"  style="background-color: coral; color: white;" class="w3-button w3-hover-shadow "><i class="fa fa-arrow-left"> DATABASE</i></button></a>
+<br>
+<h3 style="color: white; text-align: center;">{{person.capitalize()}}</h3>
+
+<div class="container"   >
+	<div class="row">
+{% for image_name in image_names %}
+    <div class="col-3">
+        <img width="150" height="150"  class="w3-hover-shadow" style=" margin: 10px; border: 1px solid white"src=" {{url_for('send_all_image', filename = image_name , person = person)}}" >
+    </div>
+{% endfor %}
+    </div>
+</div>
+{% endblock %}
