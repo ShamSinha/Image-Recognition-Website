@@ -164,7 +164,7 @@ Procedures to load Landmark dataset in Google Colab used for Training and Testin
 5. Use ImageDataGenerator if we need to augment the data
 
         from keras.preprocessing.image import ImageDataGenerator
-        datagen = ImageDataGenerator()   # we do any augmententation of data
+        datagen = ImageDataGenerator()   # we do not doing any augmententation of data
         datagen.fit(X_train)
         
         datagen2 = ImageDataGenerator()
