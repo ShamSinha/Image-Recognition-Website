@@ -69,6 +69,7 @@ Procedures to load our **Landmark recognition Model** in Google Colab
         print(classes[np.argmax(y)])
         
 
+
 Procedures to load Landmark dataset in Google Colab used for Training and Testing of our **Landmark recognition Model**
 
 1. Open this [link](https://drive.google.com/file/d/1VtiL6fqkCT_ehzRP2lBPo71hqL-wyC5c/view?usp=sharing) to load dataset in Drive.
@@ -121,7 +122,13 @@ Procedures to load Landmark dataset in Google Colab used for Training and Testin
         print ("X_test shape: " + str(X_test.shape))
         print ("Y_test shape: " + str(Y_test.shape))
  
-        
+ 6. To get per-class Precision, Recall and F1-score on your dataset = (X_test,Y_test) run 
+ 
+        from sklearn.metrics import classification_report
+        Y_pred = model.predict(X_test)
+        y_pred = np.argmax(Y_pred, axis=1) # Convert one-hot to index
+        y_test = np.argmax(Y_test, axis=1) # Convert one-hot to index
+        print(classification_report(y_test, y_pred))
         
         
 ### List of Landmarks our model can recognize
