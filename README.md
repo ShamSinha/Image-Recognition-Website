@@ -33,25 +33,17 @@ Procedures to load Landmark dataset in Google Colab used for Training and Testin
 2. Open Shared with me within Google Drive and use Add Shortcut to Drive option to make shortcut of Landmark_data30.npz dataset file in My Drive
 3. Open google Colab and run
         ```python
-        
         from google.colab import drive
         drive.mount('/content/drive')
         ```
 4. After successful mount the drive run this to load dataset
         ```python
-        
         npzfile = np.load('/content/drive/My Drive/Landmark_data30.npz')
-        
         X = npzfile['arr_0']
-        
         Y = npzfile['arr_1']
-        
         np.random.seed(150)
-        
         np.random.shuffle(X)
-        
         np.random.seed(150)
-        
         np.random.shuffle(Y)
         ```
 
