@@ -1,37 +1,37 @@
 ## Landmarks Recognition Model
 
 
-**These are the 30 landmarks that our Landmark recognition model written in Keras can recognise with 70% accuracy in validation set which comprise of 590 images and training set comprise of 5300 images**
+**These are the 30 landmarks that our Landmark recognition model written in Keras can recognise with 70% accuracy in validation set which comprise of 590 images and training set comprise of 5300 images.**
 
-1. Angkor Wat: 173
-2. Arc de Triomphe: 163
-3. Big Ben: 307
-4. Burj Al Arab: 156
-5. Burj Khalifa: 324
-6. Charminar: 238
-7. Chichen Itza: 110
-8. Christ The Redeemer: 184
-9. Colosseum: 238
-10. Effiel tower: 211
-11. Empire state building: 267
-12. Golden Gate Bridge: 245
-13. Golden Temple: 162
-14. Hawa Mahal: 144
-15. India Gate: 83
-16. Leaning Tower of Pisa: 152
-17. Lotus temple: 175
-18. Mount Rushmore: 182
-19. Petronas Tower: 291
-20. Pyramid of Giza: 252
-21. Qutub Minar: 224
-22. Red Fort: 159
-23. Statue of Liberty: 235
-24. Stone Henge: 170
-25. Sydney opera house: 288
-26. Taj Hotel: 165
-27. Taj Mahal: 173
-28. Tower Bridge: 172
-29. Victoria Memorial: 144
-30. White house: 120
+1. Angkor Wat
+2. Arc de Triomphe
+3. Big Ben
+4. Burj Al Arab
+5. Burj Khalifa
+6. Charminar
+7. Chichen Itza
+8. Christ The Redeemer
+9. Colosseum
+10. Effiel tower
+11. Empire state building
+12. Golden Gate Bridge
+13. Golden Temple
+14. Hawa Mahal
+15. India Gate
+16. Leaning Tower of Pisa
+17. Lotus temple
+18. Mount Rushmore
+19. Petronas Tower
+20. Pyramid of Giza
+21. Qutub Minar
+22. Red Fort
+23. Statue of Liberty
+24. Stone Henge
+25. Sydney opera house
+26. Taj Hotel
+27. Taj Mahal
+28. Tower Bridge
+29. Victoria Memorial
+30. White house
 
 **If we want to increase the number of classes in the model then we just have to remove the last Softmax layer of current model to new Softmax layer**
