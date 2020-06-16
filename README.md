@@ -25,12 +25,26 @@
 
 **These are the 30 landmarks that our Landmark recognition model written in Keras can recognise with 77.55% accuracy in validation set which comprise of 590 images and training set comprise of 5300 images.**
 
-[Install Keras model](https://drive.google.com/file/d/1VtiL6fqkCT_ehzRP2lBPo71hqL-wyC5c/view?usp=sharing)
+Procedures to load our **Landmark recognition Model** in Google Colab 
+1. Open this link(https://drive.google.com/file/d/1VtiL6fqkCT_ehzRP2lBPo71hqL-wyC5c/view?usp=sharing) to get our Landmark recognition model in google drive.
+2. Open Shared with me within Google Drive and use Add Shortcut to Drive option to make shortcut of ***Model30v2_77.h5*** file in My Drive.
+3. Open Google Colab and run
+
+        from google.colab import drive
+        drive.mount('/content/drive')
+        
+4. After successful mount the drive run this to load model
+        
+        from keras.models import load_model
+        model = load_model('/content/drive/My Drive/Model30v2_77.h5')
+        
+        
 
 Procedures to load Landmark dataset in Google Colab used for Training and Testing of our **Landmark recognition Model**
 
-1. Open this [link](https://drive.google.com/file/d/1VtiL6fqkCT_ehzRP2lBPo71hqL-wyC5c/view?usp=sharing) in your Google Drive.
+1. Open this [link](https://drive.google.com/file/d/1VtiL6fqkCT_ehzRP2lBPo71hqL-wyC5c/view?usp=sharing).
 2. Open Shared with me within Google Drive and use Add Shortcut to Drive option to make shortcut of ***Landmark_data30.npz*** dataset file in My Drive. 
+
 *Dataset files is after get rescaled by 1.0/255 so therefore do not rescale again if you use this dataset for training*.
 
 4. Open google Colab and run
@@ -77,6 +91,10 @@ Procedures to load Landmark dataset in Google Colab used for Training and Testin
         print ("Y_dev shape: " + str(Y_dev.shape))
         print ("X_test shape: " + str(X_test.shape))
         print ("Y_test shape: " + str(Y_test.shape))
+        
+6. To load our Landmark recognition model in Colab run
+        
+        
         
 ### List of Landmarks our model can recognize
 1. Angkor Wat
