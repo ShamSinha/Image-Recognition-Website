@@ -37,6 +37,27 @@ This repository bundles a web application with following functionalities ,
 - Now we take the minimum of all the average distances and if this is smaller than our threshold , this image is considered as the person corresponding to that distance. If the minimum of avg. distances is greater than the threshold , we consider that the person in the image is not in our database.
 - Actually the embeddings are not calculated from the original image but form the face-cropped versions of original image .
 - This cropping is using the help of openCV .
+- Infact , our algorithm is capable of handling multiple faces in the image while predicting .
+
+2. **Object Detection** :
+
+- The other important feature of our website is that, it detects various objects belonging to 80 different classes and draws bounding boxes around them .Here, we took the help of YOLO algorithm .
+- In our website along with Face Recognition result , we output the image containing the bounding boxes of detected classes.
+
+## Working of website : 
+
+### Our web application has 4 pages .
+1.  **Main/Predict page :** 
+        - We can upload images to get Face recognition & detection outputs.
+2.  **Database page :** 
+        - We can have a look at the list of persons in our database. 
+        - We have a choice to remove them too.
+        - On selecting a person we are redirected to a page containing list of all images corresponding to that person.
+3.  **Add People :**
+        - We can add people to our database from this page .
+        - Just upload person name and an image of that person , thats it , the person is added to our database. 
+
+
 
 
 
