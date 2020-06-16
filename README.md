@@ -60,5 +60,7 @@ Transfer Learning is also used for improving the accuracy
 
 
 
-<img src="https://camo.githubusercontent.com/..." data-canonical-src="https://github.com/ShamSinha/Image-Recognition-Website/blob/branch1/images/Screenshot%20(181).png" width="400" height="250" />
+![](https://github.com/ShamSinha/Image-Recognition-Website/blob/branch1/images/1.png?raw=true)
+![](https://github.com/ShamSinha/Image-Recognition-Website/blob/branch1/images/2.png?raw=true)
+
 
