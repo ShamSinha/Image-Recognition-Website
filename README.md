@@ -19,7 +19,9 @@ This repository bundles a web application with following functionalities ,
 ## Usage 
 
 1. Clone or download our Github repository .
-2. Save the [model](https://github.com/OlafenwaMoses/ImageAI/releases/download/1.0/yolo.h5) to our main directory.
+2. Save the [model](https://github.com/OlafenwaMoses/ImageAI/releases/download/1.0/yolo.h5) to the main directory as *model.h5* .
+3. Now run *app.py* in Spyder.
+
 
 
 
