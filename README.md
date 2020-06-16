@@ -38,7 +38,11 @@ Procedures to load our **Landmark recognition Model** in Google Colab
         from keras.models import load_model
         model = load_model('/content/drive/My Drive/Model30v2_77.h5')
         
-5. You can recognise Landmarks in Colab itself run this and upload your image
+5. To see our model layers run
+        
+        model.summary()
+        
+6. You can recognise Landmarks in Colab itself run this and upload your image
 
         
         from google.colab import files
