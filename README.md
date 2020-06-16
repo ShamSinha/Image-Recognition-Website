@@ -15,7 +15,7 @@
 4. Now we install all the packages required to run our website.
    - we install OpenCV library using this command
    
-        conda install -c conda-forge opencv
+         conda install -c conda-forge opencv
 
 
 ## Landmarks Recognition Model
