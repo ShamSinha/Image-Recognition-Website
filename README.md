@@ -16,6 +16,16 @@ This repository bundles a web application with following functionalities ,
     - Tensor-flow 2.0
 3. All other required packages are pre-installed in Anaconda.
 
+## Usage 
+
+1. Clone or download our Github repository .
+2. Save the [model](https://github.com/OlafenwaMoses/ImageAI/releases/download/1.0/yolo.h5) to our main directory.
+
+
+
+
+
+
 
 
 
