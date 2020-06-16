@@ -159,7 +159,7 @@ Procedures to load Landmark dataset in Google Colab used for Training and Testin
         model.compile(optimizer='adam', loss='categorical_crossentropy', metrics=['accuracy'])
         
         
-4. Now we load our dataset preocedure are given above.
+4. Now we load our dataset procedures are given above. We split the data in 90% train and 10% test set.
 
 5. Use ImageDataGenerator if we need to augment the data
 
