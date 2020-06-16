@@ -146,7 +146,7 @@ Procedures to load Landmark dataset in Google Colab used for Training and Testin
                                 include_top = False, # Leave out the last fully connected layer
                                 weights = 'imagenet')
                                 
-3.  Add modified softmax layer of 30 classes
+3.  Add the modified softmax layer which have size equal to number of classes
         
         classes  = 30    # in our case
         
