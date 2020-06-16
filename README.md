@@ -157,6 +157,28 @@ Procedures to load Landmark dataset in Google Colab used for Training and Testin
         model = Model( pre_trained_model.input, X) 
 
         model.compile(optimizer='adam', loss='categorical_crossentropy', metrics=['accuracy'])
+        
+        
+4. Now we load our dataset preocedure are given above.
+
+5. Use ImageDataGenerator if we need to augment the data
+
+        from keras.preprocessing.image import ImageDataGenerator
+        datagen = ImageDataGenerator()   # we do any augmententation of data
+        datagen.fit(X_train)
+        
+        datagen2 = ImageDataGenerator()
+        datagen2.fit(X_dev)
+
+6. Create a checkpoint in Drive and define a callback function which saves the model only if it is best.
+   Here we save the model which have high validation accuracy
+   
+        from keras.callbacks import ModelCheckpoint
+        best_model = ModelCheckpoint("/content/drive/My Drive/model.h5",
+                             monitor='val_accuracy',
+                             mode='max',
+                             save_best_only=True,
+                             verbose=1)
 
 ### List of Landmarks our model can recognize
 1. Angkor Wat
