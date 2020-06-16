@@ -3,19 +3,21 @@
 
 ## In Windows 
 1. [Install Anaconda ](https://docs.anaconda.com/anaconda/install/)
-2. Open Anaconda Prompt to create a new environment name **myenv** where you install every packages required to run this site.
-
-        conda create --name myenv python=3.5
-3. Activate **myenv** environment
-
-        conda activate myenv
         
-       
-        
-4. Now we install all the packages required to run our website.
-   - we install OpenCV library using this command
+2. Now we install all the packages required to run our website using Anaconda prompt command line
+   - Install OpenCV library
    
          conda install -c conda-forge opencv
+   - Install Tensorflow-cpu  
+   
+         conda install tensorflow-cpu
+   - Open SPYDER 
+         
+         spyder
+ 
+         
+3. Now clone this github master branch repo in your local machine.
+4. 
 
 
 ## Landmarks Recognition Model
