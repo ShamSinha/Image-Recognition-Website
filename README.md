@@ -46,7 +46,37 @@ Procedures to load Landmark dataset in Google Colab used for Training and Testin
         np.random.seed(150)
         np.random.shuffle(Y)
         
-### List of Landmarks our Model can recognize
+5. You can use this code in Colab to split the dataset into train, dev and test set 
+
+        import math
+        m = X.shape[0]
+        print("X.shape[0]: " + str(m))
+        dev_set_percentage = int(input('Enter percentage_dev_set :'))
+        test_set_percentage = int(input('Enter percentage_test_set :'))
+        size_dev_set = math.floor(m*(dev_set_percentage/100))
+        size_test_set = math.floor(m*(test_set_percentage/100))
+        size_train_set = m - size_dev_set - size_test_set
+
+        X_train = X[0:size_train_set]
+        Y_train = Y[0:size_train_set]
+
+        X_dev = X[size_train_set:size_train_set+size_dev_set]
+        Y_dev = Y[size_train_set:size_train_set+size_dev_set]
+
+        X_test = X[size_train_set+size_dev_set-1:m-1]
+        Y_test = Y[size_train_set+size_dev_set-1:m-1]
+
+        print ("number of training examples = " + str(X_train.shape[0]))
+        print ("number of dev examples = " + str(X_dev.shape[0]))
+        print ("number of test examples = " + str(X_test.shape[0]))
+        print ("X_train shape: " + str(X_train.shape))
+        print ("Y_train shape: " + str(Y_train.shape))
+        print ("X_dev shape: " + str(X_dev.shape))
+        print ("Y_dev shape: " + str(Y_dev.shape))
+        print ("X_test shape: " + str(X_test.shape))
+        print ("Y_test shape: " + str(Y_test.shape))
+        
+### List of Landmarks our model can recognize
 1. Angkor Wat
 2. Arc de Triomphe
 3. Big Ben
