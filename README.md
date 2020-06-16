@@ -26,7 +26,7 @@
 **These are the 30 landmarks that our Landmark recognition model written in Keras can recognise with 77.55% accuracy in validation set which comprise of 590 images and training set comprise of 5300 images.**
 
 Procedures to load our **Landmark recognition Model** in Google Colab 
-1. Open this link(https://drive.google.com/file/d/1VtiL6fqkCT_ehzRP2lBPo71hqL-wyC5c/view?usp=sharing) to get our Landmark recognition model in google drive.
+1. Open this [link](https://drive.google.com/file/d/1VtiL6fqkCT_ehzRP2lBPo71hqL-wyC5c/view?usp=sharing) to get our Landmark recognition model in google drive.
 2. Open Shared with me within Google Drive and use Add Shortcut to Drive option to make shortcut of ***Model30v2_77.h5*** file in My Drive.
 3. Open Google Colab and run
 
