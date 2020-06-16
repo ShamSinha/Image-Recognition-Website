@@ -23,6 +23,21 @@ This repository bundles a web application with following functionalities ,
 3. Now run *app.py* in Spyder.
 4. Open [local address](http://127.0.0.1:5000/) in a browser.
 
+## Detailed explanation 
+
+1. **Face Recognition** : 
+         
+- For, Face recognition we are using FaceNet model (a pre-trained model), this DNN model takes an input image and outputs corresponding 128-length vector.(embedding of an image)
+- This 128-length vector is used to compare image . Here, we use l2-norm of difference 2 vectors (difference vector) , this specifies how similar/different 2 images are.(call it distance)
+- In our database(a directory) we store all the images corresponding to one person in a directory with his name .
+- When we start the website the , a python dictionary is created whose keys are the names of persons in our database and the corresponding values are the python lists.
+- Each python list contains the embeddings of all images corresponding to that person.
+- Now when a new image is uploaded in our website , we get 128-length embedding of this image using the model and we calculate the average distance of this image with all the persons in our database .
+- Average distance : Average distance between a new image & a person is the average of all the distances between new image and all the images of that person .
+- Now we take the minimum of all the average distances and if this is smaller than our threshold , this image is considered as the person corresponding to that distance. If the minimum of avg. distances is greater than the threshold , we consider that the person in the image is not in our database.
+- Actually the embeddings are not calculated from the original image but form the face-cropped versions of original image .
+- This cropping is using the help of openCV .
+
 
 
 
