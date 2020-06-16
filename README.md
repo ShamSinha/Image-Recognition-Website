@@ -1,8 +1,8 @@
 ## Landmarks Recognition Model
 
 
-###These are the landmarks that our Keras model can recognise with 70% accuracy in validation set which comprise of 590 images 
-and training set comprise of 5300 images
+**These are the landmarks that our Keras model can recognise with 70% accuracy in validation set which comprise of 590 images 
+and training set comprise of 5300 images**
 
 1. Angkor Wat: 173
 2. Arc de Triomphe: 163
