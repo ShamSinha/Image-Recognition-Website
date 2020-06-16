@@ -4,7 +4,9 @@
 ## In Windows 
 1. [Install Anaconda ](https://docs.anaconda.com/anaconda/install/)
 2. Open Anaconda Prompt 
+        ```
         conda create --name myEnvironment python=3.5
+        ```
         
 **To Install all the packages we need to run this website.**
 
