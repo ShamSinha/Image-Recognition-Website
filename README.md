@@ -38,7 +38,6 @@ Procedures to load our **Landmark recognition Model** in Google Colab
         from keras.models import load_model
         model = load_model('/content/drive/My Drive/Model30v2_77.h5')
         
-        
 
 Procedures to load Landmark dataset in Google Colab used for Training and Testing of our **Landmark recognition Model**
 
@@ -91,8 +90,7 @@ Procedures to load Landmark dataset in Google Colab used for Training and Testin
         print ("Y_dev shape: " + str(Y_dev.shape))
         print ("X_test shape: " + str(X_test.shape))
         print ("Y_test shape: " + str(Y_test.shape))
-        
-6. To load our Landmark recognition model in Colab run
+ 
         
         
         
