@@ -42,7 +42,7 @@ Procedures to load our **Landmark recognition Model** in Google Colab
 
         
         from google.colab import files
-        from keras.preprocessing import image
+        from matplotlib.pyplot import imshow
         import os
         import cv2
         import numpy as np
@@ -54,10 +54,8 @@ Procedures to load our **Landmark recognition Model** in Google Colab
           img2 = cv2.resize(img,(224,224))
           x= np.array(img2)/255
           print(x.shape)
-
           imshow(img2)
           x=np.expand_dims(x,axis=0)
-
           images=np.vstack([x])
 
           y= model.predict(images)
