@@ -3,10 +3,10 @@
 
 ## In Windows 
 1. [Install Anaconda ](https://docs.anaconda.com/anaconda/install/)
-2. Open Anaconda Prompt to create a new environment name myenv where you install every packages required to run this site.
+2. Open Anaconda Prompt to create a new environment name **myenv** where you install every packages required to run this site.
 
         conda create --name myenv python=3.5
-3. Activate myenv environment
+3. Activate **myenv** environment
 
         conda activate myenv
         
