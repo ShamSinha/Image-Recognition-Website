@@ -26,6 +26,7 @@
 **These are the 30 landmarks that our Landmark recognition model written in Keras can recognise with 77.55% accuracy in validation set which comprise of 579 images and 97.07% in training set which comprise of 5324 images.**
 
 
+
 ![](https://github.com/ShamSinha/Image-Recognition-Website/blob/branch1/images/plotaccvsepoch.png?raw=true)
 
 Procedures to load our **Landmark recognition Model** in Google Colab 
@@ -132,8 +133,31 @@ Procedures to load Landmark dataset in Google Colab used for Training and Testin
         y_pred = np.argmax(Y_pred, axis=1) # Convert one-hot to index
         y_test = np.argmax(Y_test, axis=1) # Convert one-hot to index
         print(classification_report(y_test, y_pred))
+
+## We also applied Transfer Learning to increase the accuracy of Landmark Recognition model
+
+1. First we import the Inceptionv3 model 
+
+        from keras.applications.inception_v3 import InceptionV3
         
+2. Then load the pretrained model 
+
+        pre_trained_model = InceptionV3(input_shape = (224,224, 3), # Shape of our images
+                                include_top = False, # Leave out the last fully connected layer
+                                weights = 'imagenet')
+                                
+3.  Add modified softmax layer of 30 classes
         
+        classes  = 30    # in our case
+        
+        X = Flatten()(pre_trained_model.output)
+        X = Dense(1024, activation='relu', kernel_initializer = glorot_uniform(seed=0))(X)
+        X = layers.Dropout(0.5)(X)                  
+        X = Dense(classes, activation='softmax', name='fc' + str(classes), kernel_initializer = glorot_uniform(seed=0))(X)    
+        model = Model( pre_trained_model.input, X) 
+
+        model.compile(optimizer='adam', loss='categorical_crossentropy', metrics=['accuracy'])
+
 ### List of Landmarks our model can recognize
 1. Angkor Wat
 2. Arc de Triomphe
