@@ -59,4 +59,4 @@ Transfer Learning is also used for improving the accuracy
 30. White house
 
 
-![](https://github.com/ShamSinha/Image-Recognition-Website/blob/branch1/images/Screenshot%20(181).png?raw=true)
+![](https://github.com/ShamSinha/Image-Recognition-Website/blob/branch1/images/Screenshot%20(181).png = 500*500)
