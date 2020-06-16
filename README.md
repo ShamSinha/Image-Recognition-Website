@@ -38,6 +38,34 @@ Procedures to load our **Landmark recognition Model** in Google Colab
         from keras.models import load_model
         model = load_model('/content/drive/My Drive/Model30v2_77.h5')
         
+5. You can recognise Landmarks in Colab itself run
+
+        
+        from google.colab import files
+        from keras.preprocessing import image
+        import os
+        import cv2
+        import numpy as np
+        uploaded= files.upload()
+
+        for fn in uploaded.keys():
+          path=fn
+          img=cv2.imread(fn,1)
+          img2 = cv2.resize(img,(224,224))
+          x= np.array(img2)/255
+          print(x.shape)
+
+          imshow(img2)
+          x=np.expand_dims(x,axis=0)
+
+          images=np.vstack([x])
+
+          y= model.predict(images)
+          print(y)
+        classes = ['Angkor Wat', 'Arc de Triomphe', 'Big Ben', 'Burj Al Arab', 'Burj Khalifa', 'Charminar', 'Chichen Itza', 'Christ The Redeemer', 'Colosseum', 'Effiel tower', 'Empire state building', 'Golden Gate Bridge', 'Golden Temple', 'Hawa Mahal', 'India Gate', 'Leaning Tower of Pisa', 'Lotus temple', 'Mount Rushmore', 'Petronas Tower', 'Pyramid of Giza', 'Qutub Minar', 'Red Fort', 'Statue of Liberty', 'Stone Henge', 'Sydney opera house', 'Taj Hotel', 'Taj Mahal', 'Tower Bridge', 'Victoria Memorial', 'White house']
+
+        print(classes[np.argmax(y)])
+        
 
 Procedures to load Landmark dataset in Google Colab used for Training and Testing of our **Landmark recognition Model**
 
