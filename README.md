@@ -46,16 +46,16 @@ This repository bundles a web application with following functionalities ,
 
 ## Working of website : 
 
-### Our web application has 4 pages .
+### Our web application has 4 pages 
 1.  **Main/Predict page :** 
-        - We can upload images to get Face recognition & detection outputs.
+       - We can upload images to get Face recognition & detection outputs.
 2.  **Database page :** 
-        - We can have a look at the list of persons in our database. 
-        - We have a choice to remove them too.
-        - On selecting a person we are redirected to a page containing list of all images corresponding to that person.
+       - We can have a look at the list of persons in our database. 
+       - We have a choice to remove them too.
+       - On selecting a person we are redirected to a page containing list of all images corresponding to that person.
 3.  **Add People :**
-        - We can add people to our database from this page .
-        - Just upload person name and an image of that person , thats it , the person is added to our database. 
+       - We can add people to our database from this page .
+       - Just upload person name and an image of that person , thats it , the person is added to our database. 
 
 
 
