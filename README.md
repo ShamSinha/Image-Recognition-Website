@@ -23,7 +23,8 @@
 ## Landmarks Recognition Model
 
 
-**These are the 30 landmarks that our Landmark recognition model written in Keras can recognise with 77.55% accuracy in validation set which comprise of 590 images and training set comprise of 5300 images.**
+**These are the 30 landmarks that our Landmark recognition model written in Keras can recognise with 77.55% accuracy in validation set and 97.07% in training set which comprise of 579 images and training set comprise of 5324 images.**
+
 
 ![](https://github.com/ShamSinha/Image-Recognition-Website/blob/branch1/images/plotaccvsepoch.png?raw=true)
 
