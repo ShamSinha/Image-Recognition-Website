@@ -2,14 +2,17 @@
 
 <style>
     
-button{border-radius: 10px;  }
+button{
+        border-radius: 10px;
+        
+    }
     
     
 </style>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
- 
+<!--<link href="{{ url_for('static', filename='css/data.css') }}" rel="stylesheet">--> 
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">  
 
-<a href = "/database"><button type="button"  style="background-color: coral; color: white;" class="w3-button w3-hover-shadow "><i class="fa fa-arrow-left"> DATABASE</i></button></a>
+<a href = "/database"><button type="button"  style="background-color: coral; color: white; margin: 10px 25px; padding: 12px 30px;" class="w3-button w3-hover-shadow "> <i class="fa fa-arrow-left"></i> Database </button></a>
 <br>
 <h3 style="color: white; text-align: center;">{{person.capitalize()}}</h3>
 
