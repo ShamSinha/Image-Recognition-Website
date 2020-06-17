@@ -51,12 +51,12 @@ This repository bundles a web application with following functionalities ,
 1.  **Main/Predict Route :** 
        - We can upload images to get Face recognition , detection outputs and monument recognition outputs.
        
-      <img src='Images/image1.png'>
-      <img src='Images/image2.png'>
-      <img src='Images/image3.png'>
-      <img src='Images/image4.png'>
-      <img src='Images/image14.png'>
-      <img src='Images/image15.png'>
+      <img src='Images/image17.png'>
+      <img src='Images/image19.png'>
+      <img src='Images/image18.png'>
+      <img src='Images/image20.png'>
+      <img src='Images/image21.png'>
+      <img src='Images/image22.png'>
 
 2.  **Database Route :** 
        - We can have a look at the list of persons in our database. 
