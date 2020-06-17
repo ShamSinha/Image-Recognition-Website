@@ -29,7 +29,6 @@
 
 ![](https://github.com/ShamSinha/Image-Recognition-Website/blob/branch1/images/Screenshot%20(192).png)
 
-![](https://github.com/ShamSinha/Image-Recognition-Website/blob/branch1/images/Screenshot%20(195).png)
 
 Procedures to load our **Landmark recognition Model** in Google Colab 
 1. Open this [link](https://drive.google.com/file/d/1tyyJA27U_3oNddpM0HKQ3ejYFzCSxOR5/view?usp=sharing) to get our Landmark recognition model in Google Drive.
@@ -50,7 +49,7 @@ Procedures to load our **Landmark recognition Model** in Google Colab
         
 6. Per class precision, recall and f1-score on validation-set which comprise of 1770 images
 
-
+![](https://github.com/ShamSinha/Image-Recognition-Website/blob/branch1/images/Screenshot%20(195).png)
         
 7. You can recognise Landmarks in Colab itself run this and upload your image
 
