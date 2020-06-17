@@ -1,18 +1,27 @@
 {% extends "base.html" %} {% block content %}
 
 <style>
-button{
-        border-radius: 10px;
-        
-    }
+       
 </style>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-
-<a href = "/database" ><button id = "btn1" type="button"  style="background-color: coral; color: white;" class="w3-button w3-hover-shadow ">DATABASE</button></a>
+<div style = "display:inline-block" >
+<a href = "/database"><button id="btn1" class="w3-button w3-hover-shadow " type="button" > <i class="fa fa-arrow-left"></i>  Database </button></a>
+<a href = "/add"  style="padding-left: 450px"><button id="btn2"type="button"  class="w3-button w3-hover-shadow ">  Add People <i class="fa fa-arrow-right"></i>  </button></a>
+</div>
 <div style="text-align: center;">
-    <h3 style="color: white; margin: 20px; font-family: serif;">Upload  Image </h3>
+    <h3 style="color: white; margin: 20px; font-family: serif;">Select type & upload  Image </h3>
     <div >
         <form id="upload-file" method="post" enctype="multipart/form-data">
+            <div class="container">
+            <div class="row">
+            <div class="col" >
+            <input style="margin: 15px"type="radio" name="options" id="option1" value="Face Recognition" > <span style="color: white; font-family:serif; font-size: 1.75em" >Face Recognition </span></input>
+            <input  style="margin: 15px" type="radio" name="options" id="option2" value="Monument Recognition" > <span style="color: white; font-family:serif; font-size: 1.75em;" > Monument Recognition </span> </input>
+            <input style="margin: 15px" type="radio" name="options" id="option3" value="Both" >  <span style="color: white; font-family:serif; font-size: 1.75em;" > Both </span> </input>
+            </div>
+            </div>
+            </div>
+            <br>
             <label for="imageUpload" class="upload-label w3-hover-shadow">
                 Choose !!
             </label>
@@ -29,9 +38,14 @@ button{
             </div>
         </div>
 
+
         <div class="loader" style="display:none; "></div>
 
         <h3 id="result" style="color: white; text-transform: capitalize; ">
+            <span></span>
+        </h3>
+
+        <h3 id="result1" style="color: white; text-transform: capitalize; ">
             <span></span>
         </h3>
 
