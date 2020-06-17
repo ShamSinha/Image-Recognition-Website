@@ -75,18 +75,16 @@ This repository bundles a web application with following functionalities ,
       ![](https://github.com/ShamSinha/Image-Recognition-Website/blob/branch_manideep/Images/image20.png)
       ![](https://github.com/ShamSinha/Image-Recognition-Website/blob/branch_manideep/Images/image21.png)
       ![](https://github.com/ShamSinha/Image-Recognition-Website/blob/branch_manideep/Images/image22.png)
-      <img src='Images/image17.png'>
-      <img src='Images/image19.png'>
-      <img src='Images/image18.png'>
-      <img src='Images/image20.png'>
-      <img src='Images/image21.png'>
-      <img src='Images/image22.png'>
+  
 
 2.  **Database Route :** 
        - We can have a look at the list of persons in our database. 
        - We have a choice to remove them too.(explained in detailed later)
        - On selecting a person we are redirected to a page containing list of all images corresponding to that person.
-
+  
+      ![](https://github.com/ShamSinha/Image-Recognition-Website/blob/branch_manideep/Images/image5.png)
+      ![](https://github.com/ShamSinha/Image-Recognition-Website/blob/branch_manideep/Images/image16.png)
+      ![](https://github.com/ShamSinha/Image-Recognition-Website/blob/branch_manideep/Images/image8.png)
       <img src='Images/image5.png'>
       <img src='Images/image16.png'>
       <img src='Images/image8.png'>
@@ -94,16 +92,17 @@ This repository bundles a web application with following functionalities ,
 3.  **Add People Route :**
        - We can add people to our database from this page .
        - Just upload person name and an image of that person , thats it , the person is added to our database. 
+      ![](https://github.com/ShamSinha/Image-Recognition-Website/blob/branch_manideep/Images/image9.png)
+      ![](https://github.com/ShamSinha/Image-Recognition-Website/blob/branch_manideep/Images/image10.png)
+      ![](https://github.com/ShamSinha/Image-Recognition-Website/blob/branch_manideep/Images/image11.png)
 
-      <img src='Images/image9.png'>
-      <img src='Images/image10.png'>
-      <img src='Images/image11.png'>
 
 4. **Remove people from database :**
       - We can remove people from our Database from Database page.
-
-      <img src='Images/image12.png'>
-      <img src='Images/image13.png'>
+      
+      ![](https://github.com/ShamSinha/Image-Recognition-Website/blob/branch_manideep/Images/image12.png)
+      ![](https://github.com/ShamSinha/Image-Recognition-Website/blob/branch_manideep/Images/image13.png)
+   
 
 
 
