@@ -48,7 +48,7 @@ This repository bundles a web application with following functionalities ,
 ## Working of website : 
 
 ### Our web application has 4 pages 
-1.  **Main/Predict page :** 
+1.  **Main/Predict Route :** 
        - We can upload images to get Face recognition , detection outputs and monument recognition outputs.
        
       <img src='Images/image1.png'>
@@ -57,22 +57,31 @@ This repository bundles a web application with following functionalities ,
       <img src='Images/image4.png'>
       <img src='Images/image14.png'>
       <img src='Images/image15.png'>
-2.  **Database page :** 
+
+2.  **Database Route :** 
        - We can have a look at the list of persons in our database. 
-       - We have a choice to remove them too.
+       - We have a choice to remove them too.(explained in detailed later)
        - On selecting a person we are redirected to a page containing list of all images corresponding to that person.
 
       <img src='Images/image5.png'>
-      <img src='Images/image6.png'>
       <img src='Images/image16.png'>
       <img src='Images/image8.png'>
-3.  **Add People :**
+
+3.  **Add People Route:**
        - We can add people to our database from this page .
        - Just upload person name and an image of that person , thats it , the person is added to our database. 
 
       <img src='Images/image9.png'>
       <img src='Images/image10.png'>
       <img src='Images/image11.png'>
+
+4. **Remove people from database**
+
+       - We can remove people from our Database from Database page.
+
+      <img src='Images/image12.png'>
+      <img src='Images/image13.png'>
+
 
 
 
