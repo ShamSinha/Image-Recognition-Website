@@ -222,7 +222,7 @@ Procedures to load our **Landmark recognition Model** in Google Colab
 
 Procedures to load Landmark dataset in Google Colab used for Training and Testing of our **Landmark recognition Model**
 
-1. Open this [link](https://drive.google.com/file/d/1VtiL6fqkCT_ehzRP2lBPo71hqL-wyC5c/view?usp=sharing) to load dataset in Drive.
+1. Open this [link](https://drive.google.com/file/d/1-IpXylWtUf8OF4M5fGoRUWFBtlbNQ7g1/view?usp=sharing) to load dataset in Drive.
 2. Open Shared with me within Google Drive and use Add Shortcut to Drive option to make shortcut of ***Landmark_data30.npz*** dataset file in My Drive. 
 
 *Dataset files is after get rescaled by 1.0/255 so therefore do not rescale again if you use this dataset for training*.
