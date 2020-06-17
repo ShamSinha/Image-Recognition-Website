@@ -1,7 +1,10 @@
 {% extends "base.html" %} {% block content %}
 
 <style>
-
+    /*h1 {padding-left: 50px;}
+    div {
+        padding-left: 50px;
+    }*/
     button{
         border-radius: 10px;
         
@@ -9,6 +12,7 @@
     
 </style>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
 <script>
 
 let loadFile = function(event) {
@@ -34,6 +38,7 @@ $('#btn').click (function() {
 
               document.querySelector('#result').style.display = "inline";
               $('#output').hide();
+              document.querySelector('#nameUpload').value="";
               document.querySelector('#result').style.visibility = "visible";
               function showdiv(){
                 document.querySelector('#result').style.visibility = "hidden";
@@ -50,11 +55,11 @@ $('#btn').click (function() {
     
 </script>
 <div style = "display:inline-block">
-<a href = "/"><button style="background-color: coral; color:white;"type="button" class="w3-button w3-hover-shadow " ><i class="fa fa-arrow-left"></i> PREDICT</button></a>
-<a href = "/database" style= "padding-left:600px"><button type="button"  style="background-color: coral; color: white;" class="w3-button w3-hover-shadow ">DATABASE <i class="fa fa-arrow-right"></i></button></a>
+<a href = "/back_to_predict"><button style="background-color: coral; color:white; margin: 10px 25px; padding: 12px 30px;"type="button" class="w3-button w3-hover-shadow " > <i class="fa fa-arrow-left"></i>  Predict </button></a>
+<a href = "/database" style="padding-left: 500px" ><button type="button"  style=" margin: 12px 30px; padding: 10px 25px; background-color: coral; color: white;" class="w3-button w3-hover-shadow ">  Database <i class="fa fa-arrow-right"></i>  </button></a>
 </div>
 <div style="text-align: center;">
-<h1 style="color:white">Add Person's Face in Database</h1>
+<h1 style="color:white;font-family: serif; ">Add person's face in Database</h1>
 
     <form  id="upload-database" method="post" enctype="multipart/form-data">
         <label for="personUpload" class="upload-label">
