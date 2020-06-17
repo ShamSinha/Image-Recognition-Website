@@ -27,7 +27,7 @@
 
 
 
-![](https://github.com/ShamSinha/Image-Recognition-Website/blob/branch1/images/plotaccvsepoch.png?raw=true)
+![](https://github.com/ShamSinha/Image-Recognition-Website/blob/branch1/images/Screenshot%20(192).png)
 
 Procedures to load our **Landmark recognition Model** in Google Colab 
 1. Open this [link](https://drive.google.com/file/d/1tyyJA27U_3oNddpM0HKQ3ejYFzCSxOR5/view?usp=sharing) to get our Landmark recognition model in Google Drive.
