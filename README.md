@@ -47,11 +47,61 @@ Procedures to load our **Landmark recognition Model** in Google Colab
         
         model.summary()
         
-6. Per class precision, recall and f1-score on validation-set which comprise of 1770 images
+6. This is the model we use to train our landmark dataset written in Keras
+        
+        def Landmarkmodelnew(input_shape = (224, 224, 3), classes = 30):
+    
+            X_input = Input(input_shape)
+
+            X = ZeroPadding2D((3, 3))(X_input)
+
+            X = Conv2D(16, (3, 3), strides = (1, 1), name = 'convFIRST', kernel_initializer = glorot_uniform(seed=0))(X)
+            X = BatchNormalization(axis = 3, name = 'bnFIRST')(X)
+            X = Activation('relu')(X)
+            X = MaxPooling2D((2, 2), name='max_pool_FIRST')(X)
+
+            X = Conv2D(32, (3, 3), strides = (1, 1), name = 'conv0', kernel_initializer = glorot_uniform(seed=0))(X)
+            X = BatchNormalization(axis = 3, name = 'bn0')(X)
+            X = Activation('relu')(X)
+            X = MaxPooling2D((2, 2), name='max_pool_0')(X)
+
+            X = Dropout(rate = 0.5)(X)
+
+            X = Conv2D(64, (3, 3), strides = (1, 1), name = 'conv1', kernel_initializer = glorot_uniform(seed=0))(X)
+            X = BatchNormalization(axis = 3, name = 'bn1')(X)
+            X = Activation('relu')(X)
+            X = MaxPooling2D((2, 2), name='max_pool_1')(X)
+
+            X = Conv2D(128, (3, 3), strides = (1, 1), name = 'conv2', kernel_initializer = glorot_uniform(seed=0))(X)
+            X = BatchNormalization(axis = 3, name = 'bn2')(X)
+            X = Activation('relu')(X)
+            X = MaxPooling2D((2, 2), name='max_pool_2')(X)
+
+            X = Dropout(rate = 0.5)(X)
+
+            X = Conv2D(256, (3, 3), strides = (1, 1), name = 'conv3', kernel_initializer = glorot_uniform(seed=0))(X)
+            X = BatchNormalization(axis = 3, name = 'bn3')(X)
+            X = Activation('relu')(X)
+            X = MaxPooling2D((2, 2), name='max_pool_3')(X)
+
+            X = Dropout(rate = 0.5)(X)
+            X = Flatten()(X)
+            X = Dense(2048, activation='relu', kernel_initializer = glorot_uniform(seed=0))(X)
+            X = Dense(classes, activation='softmax', name='fc' + str(classes), kernel_initializer = glorot_uniform(seed=0))(X)
+
+            model = Model(inputs = X_input, outputs = X, name='Landmarkmodelnew')
+            return model 
+            
+       model = Landmarkmodelnew(input_shape = (224, 224, 3), classes = 30)
+            
+       model.compile(optimizer='adam', loss='categorical_crossentropy', metrics=['accuracy'])
+       
+        
+7. Per class precision, recall and f1-score on validation-set which comprise of 1770 images
 
       ![](https://github.com/ShamSinha/Image-Recognition-Website/blob/branch1/images/Screenshot%20(195).png)
         
-7. You can our model to recognise Landmarks in Colab itself run this and upload your image.
+8. You can our model to recognise Landmarks in Colab itself run this and upload your image.
 
         
         from google.colab import files
