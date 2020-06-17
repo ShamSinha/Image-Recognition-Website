@@ -42,13 +42,15 @@ This repository bundles a web application with following functionalities ,
 2. **Object Detection** :
 
 - The other important feature of our website is that, it detects various objects belonging to 80 different classes and draws bounding boxes around them .Here, we took the help of YOLO algorithm .
+- Have a look at [YOLO](https://pjreddie.com/darknet/yolo/) .
 - In our website along with Face Recognition result , we output the image containing the bounding boxes of detected classes.
 
 ## Working of website : 
 
 ### Our web application has 4 pages 
 1.  **Main/Predict page :** 
-       - We can upload images to get Face recognition & detection outputs.
+       - We can upload images to get Face recognition , detection outputs and monument recognition outputs.
+       ![](Images/image1)
 2.  **Database page :** 
        - We can have a look at the list of persons in our database. 
        - We have a choice to remove them too.
