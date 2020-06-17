@@ -215,7 +215,7 @@ Procedures to load Landmark dataset in Google Colab used for Training and Testin
  
 3. Open this [link](https://drive.google.com/drive/folders/1BhAahnGUM2C-0FTiTE5wrqdifcjHY5lj?usp=sharing) to get Landmark_Image_Dataset used in training of our model
 
-4. Now I want to include 10 new classes then add folders of it in above Landmark_Image_Dataset folder and make shortcut of it in My Drive
+4. Now include 10 new classes as folders of it in above Landmark_Image_Dataset folder and make shortcut of it in My Drive
 
 4. To know total number of images as well as per-class present in your new dataset run
 
