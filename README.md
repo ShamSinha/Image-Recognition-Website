@@ -49,7 +49,7 @@ Procedures to load our **Landmark recognition Model** in Google Colab
         
 6. Per class precision, recall and f1-score on validation-set which comprise of 1770 images
 
-![](https://github.com/ShamSinha/Image-Recognition-Website/blob/branch1/images/Screenshot%20(195).png)
+      ![](https://github.com/ShamSinha/Image-Recognition-Website/blob/branch1/images/Screenshot%20(195).png)
         
 7. You can our model to recognise Landmarks in Colab itself run this and upload your image.
 
@@ -105,7 +105,7 @@ Procedures to load Landmark dataset in Google Colab used for Training and Testin
 
         import math
         m = X.shape[0]
-        print("X.shape[0]: " + str(m))
+        print("Total images in our dataset: " + str(m))
         dev_set_percentage = int(input('Enter percentage_dev_set :'))
         test_set_percentage = int(input('Enter percentage_test_set :'))
         size_dev_set = math.floor(m*(dev_set_percentage/100))
