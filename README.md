@@ -191,18 +191,16 @@ Procedures to load Landmark dataset in Google Colab used for Training and Testin
 ## We can also retrain our model if we want to include more landmarks 
 
 1.  Use above steps to load our Landmark recognition model in Colab. 
-        
-                                
+                  
 2.  Add the modified softmax layer which have size equal to number of classes
-        
         
         classes  = 40    # in our new case
         
-        # Load the model and make modifications to it
-        loaded_model.layers.pop()
-
+        # Load the model as loaded_layers 
+       
         # Create your new model by removing last one fully-connected layer replace it with new fc layer
         
+        loaded_model.layers.pop()
         new_dense_layer = Dense(classes, activation='softmax', name='fc' + str(classes))(loaded_model.layers[-1].output)
         new_model = Model(inputs=loaded_model.inputs, outputs= new_dense_layer)
         
@@ -221,8 +219,6 @@ Procedures to load Landmark dataset in Google Colab used for Training and Testin
         from keras.preprocessing.image import ImageDataGenerator
         datagen = ImageDataGenerator()   
         datagen.fit(X_train)
-        
-        # do not augment the validation data or test data
 
 6. Create a checkpoint in Drive and define a callback function which saves the model only if it is best.
    Here we save the model which have high validation accuracy
