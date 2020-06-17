@@ -3,6 +3,7 @@ $(document).ready(function () {
     $('.image-section').hide();
     $('.loader').hide();
     $('#result').hide();
+    $('#result1').hide();
 
     // Upload Preview
     function readURL(input) {
@@ -21,34 +22,39 @@ $(document).ready(function () {
         $('#btn-predict').show();
         $('#result').text('');
         $('#result').hide();
+        $('#result1').text('');
+        $('#result1').hide();
         readURL(this);
     });
 
     // Predict
     $('#btn-predict').click(function () {
-        var form_data = new FormData($('#upload-file')[0]);
-
-        // Show loading animation
+        var form_data = new FormData(document.getElementById('upload-file'));
+        
         $(this).hide();
         $('.loader').show();
 
-        // Make prediction by calling api /predict
-        $.ajax({
-            type: 'POST',
-            url: '/predict',
-            data: form_data,
-            contentType: false,
-            cache: false,
-            processData: false,
-            async: true,
-            success: function (data) {
-                // Get and display the result
-                $('.loader').hide();
-                $('#result').fadeIn(600);
-                $('#result').text(' Result:  ' + data);
-                console.log('Success!');
-            },
-        });
+        const request = new XMLHttpRequest();
+        request.open('POST', '/predict');
+        
+        request.onload = () => {
+
+              // Extract JSON data from request
+              const data = JSON.parse(request.responseText);
+
+              // Update the result div
+              document.querySelector('#result').innerHTML = data.result;
+              document.querySelector('#result1').innerHTML = data.result1;
+              $('#imagePreview').css('background-image', 'url(' + data.our_url + ')');
+              $("#imagePreview").css("border", "0px solid #F8F8F8"); 
+              $('.loader').hide();
+              $('#result').fadeIn(600);
+              $('#result1').fadeIn(600);
+          
+          }
+        request.send(form_data);
+        
+        
     });
 
 });
