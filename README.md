@@ -51,7 +51,7 @@ This repository bundles a web application with following functionalities ,
 1.  **Main/Predict page :** 
        - We can upload images to get Face recognition , detection outputs and monument recognition outputs.
        
-      <img src='Images/image1.png' width =770px height=420px>
+      <img src='Images/image1.png'>
 2.  **Database page :** 
        - We can have a look at the list of persons in our database. 
        - We have a choice to remove them too.
