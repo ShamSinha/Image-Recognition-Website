@@ -213,11 +213,11 @@ Procedures to load Landmark dataset in Google Colab used for Training and Testin
         new_model.compile(optimizer='adam', loss='categorical_crossentropy', metrics=['accuracy'])
         
  
-3. Open this [link](https://drive.google.com/drive/folders/1BhAahnGUM2C-0FTiTE5wrqdifcjHY5lj?usp=sharing) to get Landmark_Image_Dataset used in training of our model
+3. Open this [link](https://drive.google.com/drive/folders/1BhAahnGUM2C-0FTiTE5wrqdifcjHY5lj?usp=sharing) to get Landmark_Image_Dataset used in training of our model.
 
-4. Now include 10 new classes as folders of it in above Landmark_Image_Dataset folder and make shortcut of it in My Drive
+4. Now include 10 new classes as folders of it in above Landmark_Image_Dataset folder and make shortcut of it in My Drive.
 
-4. To know total number of images as well as per-class present in your new dataset run
+4. To know total number of images as well as per-class present in your new dataset run this
 
         import os
         rootdir = '/content/drive/My Drive/Landmark_Image_Dataset'    # Landmark_Image_Dataset folder path
@@ -298,25 +298,25 @@ Procedures to load Landmark dataset in Google Colab used for Training and Testin
    Here we save the model which have high validation accuracy
    
         from keras.callbacks import ModelCheckpoint
-        best_model = ModelCheckpoint("/content/drive/My Drive/new_model_30.h5",
+        best_model = ModelCheckpoint("new_model_40.h5",
                              monitor='val_accuracy',
                              mode='max',
                              save_best_only=True,
                              verbose=1)
-7. To train the new_model_30 run
+7. To train the new_model_40 
 
         # fits the model on batches with real-time data augmentation:
-        # model.fit return history 
-        history = model.fit(datagen.flow(X_train, Y_train, batch_size=32), epochs=20 , validation_data = (X_dev,Y_dev), callbacks=[best_model])
+        # new_model.fit return history 
+        history = new_model.fit(datagen.flow(X_train, Y_train, batch_size=32), epochs=20 , validation_data = (X_dev,Y_dev), callbacks=[best_model])
         
-8. To train again this model with epochs = 20 run 
+8. To train again this model with more 20 epochs 
         
          # fits the model on batches with real-time data augmentation:
-         # model.fit return history1
-        history1 = model.fit(datagen.flow(X_train, Y_train, batch_size=32), epochs=20 , validation_data = (X_dev, Y_dev) , callbacks=[best_model])
+         # new_model.fit return history1
+        history1 = new_model.fit(datagen.flow(X_train, Y_train, batch_size=32), epochs=20 , validation_data = (X_dev, Y_dev) , callbacks=[best_model])
         
         
-9. To plot training and validation set accuracy vs epochs run
+9. To plot training and validation set accuracy vs epochs
 
         Total_epochs_so_far = 20 + 20  # we fit twice with each 20 epochs
         import pandas as pd
@@ -328,7 +328,7 @@ Procedures to load Landmark dataset in Google Colab used for Training and Testin
         acc_val = history.history['val_accuracy'] + history1.history['val_accuracy']
 
         epochs = range(0,Total_epochs_so_far)
-        # now plot 
+        
         plt.plot(epochs, acc_train, 'g', label='Training accuracy')
         plt.plot(epochs, acc_val, 'b', label='validation accuracy')
         plt.title('Training and Validation accuracy')
@@ -355,7 +355,7 @@ Procedures to load Landmark dataset in Google Colab used for Training and Testin
 11. To get per-class precision, recall and f1-score on your test set = (X_test,Y_test) run 
  
         from sklearn.metrics import classification_report
-        Y_pred = model.predict(X_test)
+        Y_pred = new_model.predict(X_test)
         y_pred = np.argmax(Y_pred, axis=1) # Convert one-hot to index
         y_test = np.argmax(Y_test, axis=1) # Convert one-hot to index
         print(classification_report(y_test, y_pred))
