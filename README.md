@@ -477,7 +477,7 @@ Procedures to load Landmark dataset in Google Colab used for Training and Testin
 29. Victoria Memorial
 30. White house
 
-
+This is our video [link](https://github.com/ShamSinha/Image-Recognition-Website/blob/master/Image_Recognition_website.mp4) of our Image Recognition Website 
 
 
 
