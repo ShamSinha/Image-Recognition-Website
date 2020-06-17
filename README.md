@@ -51,6 +51,7 @@ Procedures to load our **Landmark recognition Model** in Google Colab
         
         from keras.layers import Input, Add, Dense, Activation, ZeroPadding2D, BatchNormalization, Flatten, Conv2D, AveragePooling2D, MaxPooling2D, GlobalMaxPooling2D,Dropout,LeakyReLU
         from keras.models import Model
+        from keras.initializers import glorot_uniform
         import keras.backend as K
         K.set_image_data_format('channels_last')
         K.set_learning_phase(1)
