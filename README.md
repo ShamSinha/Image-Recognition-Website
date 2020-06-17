@@ -101,6 +101,8 @@ This repository bundles a web application with following functionalities ,
       - We can remove people from our Database from Database page.
       
       ![](https://github.com/ShamSinha/Image-Recognition-Website/blob/branch_manideep/Images/image12.png)
+      
+      
       ![](https://github.com/ShamSinha/Image-Recognition-Website/blob/branch_manideep/Images/image13.png)
    
 
