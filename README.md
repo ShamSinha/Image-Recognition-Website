@@ -151,7 +151,7 @@ Procedures to load Landmark dataset in Google Colab used for Training and Testin
         # Load the model and make modifications to it
         loaded_model.layers.pop()
 
-        # Create your new model with the one layers removed and transfer weights
+        # Create your new model by removing last one fully-connected layer replace it with new fc layer
         
         new_dense_layer = Dense(classes, activation='softmax', name='fc' + str(classes))(loaded_model.layers[-1].output)
         new_model = Model(inputs=loaded_model.inputs, outputs= new_dense_layer)
