@@ -215,14 +215,14 @@ Procedures to load Landmark dataset in Google Colab used for Training and Testin
         
 4. Now we load our dataset and split it as shown above.
 
-5. Use ImageDataGenerator if we need to augment the data
+5. If required use [ImageDataGenerator](https://keras.io/api/preprocessing/image/#imagedatagenerator-class) for augmententation of training data. 
+   *Don't do any augmentation on validation set and test set.* 
 
         from keras.preprocessing.image import ImageDataGenerator
-        datagen = ImageDataGenerator()   # we do not doing any augmententation of data
+        datagen = ImageDataGenerator()   
         datagen.fit(X_train)
         
-        datagen2 = ImageDataGenerator()
-        datagen2.fit(X_dev)
+        # do not augment the validation data or test data
 
 6. Create a checkpoint in Drive and define a callback function which saves the model only if it is best.
    Here we save the model which have high validation accuracy
@@ -237,7 +237,7 @@ Procedures to load Landmark dataset in Google Colab used for Training and Testin
 
         # fits the model on batches with real-time data augmentation:
         # model.fit return history 
-        history = model.fit(datagen.flow(X_train, Y_train, batch_size=32), epochs=20 , validation_data = datagen2.flow(X_dev, Y_dev, batch_size=32) , callbacks=[best_model])
+        history = model.fit(datagen.flow(X_train, Y_train, batch_size=32), epochs=20 , validation_data = (X_dev,Y_dev), callbacks=[best_model])
         
 8. To train again this model with epochs = 20 run 
         
