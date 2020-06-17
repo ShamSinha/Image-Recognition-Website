@@ -279,7 +279,7 @@ Procedures to load Landmark dataset in Google Colab used for Training and Testin
          print("")
          
          #### save data in drive ######
-         np.savez('/content/drive/My Drive/Landmark_data30.npz', x = X_data, y = Y_data)
+         np.savez('/content/drive/My Drive/Landmark_data30.npz', X_data, Y_data)
  
 4. Now we load our dataset and split it as shown above.
 
