@@ -104,7 +104,9 @@ This repository bundles a web application with following functionalities ,
       
       
       ![](https://github.com/ShamSinha/Image-Recognition-Website/blob/branch_manideep/Images/image13.png)
-   
+ 
+ 
+ 
 ## Landmarks Recognition Model
 
 
