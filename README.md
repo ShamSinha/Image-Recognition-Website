@@ -45,6 +45,11 @@ This repository bundles a web application with following functionalities ,
 - Have a look at [YOLO](https://pjreddie.com/darknet/yolo/) .
 - In our website along with Face Recognition result , we output the image containing the bounding boxes of detected classes.
 
+3. **Landmark Recognition**
+
+- Our Landmark recognition model can recognize 30 famous landmarks written in Keras can recognise with 74.58% accuracy in validation set which comprise of 1770 images and 99.83% in training set which comprise of 4133 images.
+- Detailed explaination of our Landmark recognition model is shown below.
+
 ## Working of website : 
 
 ### Our web application has 4 pages 
