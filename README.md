@@ -211,7 +211,75 @@ Procedures to load Landmark dataset in Google Colab used for Training and Testin
         
         new_model.compile(optimizer='adam', loss='categorical_crossentropy', metrics=['accuracy'])
         
-        
+                
+3. To know total number of images as well as per-class present in your new dataset run
+
+        import os
+        rootdir = '/content/drive/My Drive/new_dataset'    # directory where your new classes are present as their respective folder
+        number_classes = len(os.listdir(rootdir))
+        total_images = 0
+        i = 0
+        for i in range(number_classes):
+
+          files = os.listdir(os.path.join(rootdir,os.listdir(rootdir)[i]))
+          j = 0
+          for myFile in files:
+              j = j+1
+
+          total_images = total_images +j               
+          print(str(i+1)+". "+ os.listdir(rootdir)[i] + ": "+ str(j))
+          print("total_images: " + total_images)
+          # total_images gives the number of total images present in your new dataset
+           
+  
+  4. We create our dataset using below shown technique
+
+         from keras.preprocessing.image import ImageDataGenerator
+         rootdir = '/content/drive/My Drive/new_dataset'    # directory where your new classes are present as their respective folder
+         total_datagen = ImageDataGenerator(
+                rescale=1.0/255,
+                )
+         total_generator = total_datagen.flow_from_directory(
+                rootdir,target_size=(224, 224),
+                batch_size= 64,
+                class_mode='categorical',shuffle =True )
+  
+         import sys
+         import time
+
+         total_data= total_generator
+         count = 0
+         batch_size = 64
+         X = np.empty((batch_size,224,224,3))
+         Y = np.empty((batch_size,number_classes)
+
+         for i,j in total_data:
+
+          count = count + 1
+          if count == 1 :
+            X = i
+          if count > 1:
+            X = np.vstack([X,i])
+
+          X_data = X
+          
+          if count == 1 :
+            Y = j
+          if count > 1:
+            Y = np.vstack([Y,j])
+          Y_data = Y
+
+          sys.stdout.write("\r" + "X_data.shape: " + str(X_data.shape)  + "    Y_data.shape: " + str(Y_data.shape))
+          sys.stdout.flush()
+          time.sleep(1)
+
+          if Y_data.shape[0] == 5903 :
+            break
+         print("")
+         
+         #### save data in drive ######
+         np.savez('/content/drive/My Drive/Landmark_data30.npz', x = X_data, y = Y_data)
+ 
 4. Now we load our dataset and split it as shown above.
 
 5. If required use [ImageDataGenerator](https://keras.io/api/preprocessing/image/#imagedatagenerator-class) for augmententation of training data. 
