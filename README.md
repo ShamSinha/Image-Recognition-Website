@@ -273,7 +273,7 @@ Procedures to load Landmark dataset in Google Colab used for Training and Testin
           sys.stdout.flush()
           time.sleep(1)
 
-          if Y_data.shape[0] == 5903 :
+          if Y_data.shape[0] == total_images :
             break
          print("")
          
@@ -293,12 +293,12 @@ Procedures to load Landmark dataset in Google Colab used for Training and Testin
    Here we save the model which have high validation accuracy
    
         from keras.callbacks import ModelCheckpoint
-        best_model = ModelCheckpoint("/content/drive/My Drive/new_model_40.h5",
+        best_model = ModelCheckpoint("/content/drive/My Drive/new_model_30.h5",
                              monitor='val_accuracy',
                              mode='max',
                              save_best_only=True,
                              verbose=1)
-7. To train the new_model_40 run
+7. To train the new_model_30 run
 
         # fits the model on batches with real-time data augmentation:
         # model.fit return history 
