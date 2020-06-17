@@ -228,7 +228,7 @@ Procedures to load Landmark dataset in Google Colab used for Training and Testin
 
           total_images = total_images +j               
           print(str(i+1)+". "+ os.listdir(rootdir)[i] + ": "+ str(j))
-          print("total_images: " + total_images)
+          print("total_images: " + str(total_images))
           # total_images gives the number of total images present in your new dataset
            
   
@@ -318,15 +318,9 @@ Procedures to load Landmark dataset in Google Colab used for Training and Testin
         from sklearn.model_selection import train_test_split
         import matplotlib.pyplot as plt
 
-        acc_train1 = history.history['accuracy']
-        acc_train2 = history1.history['accuracy']
-
-        acc_train = acc_train1 + acc_train2 
-       
-        acc_val1 = history.history['val_accuracy']
-        acc_val2 = history1.history['val_accuracy']
+        acc_train = history.history['accuracy'] + history1.history['accuracy']
         
-        acc_val = acc_val1 + acc_val2
+        acc_val = history.history['val_accuracy'] + history1.history['val_accuracy']
 
         epochs = range(0,Total_epochs_so_far)
         # now plot 
@@ -339,16 +333,10 @@ Procedures to load Landmark dataset in Google Colab used for Training and Testin
         plt.show()
         
 10. To plot training and validation loss vs epochs run
+ 
+        loss_train = history.history['loss'] + history1.history['loss']
 
-        loss_train1 = history.history['loss']
-        loss_train2 = history1.history['loss']
-
-        loss_train = loss_train1 + loss_train2 
-
-        loss_val1 = history.history['val_loss']
-        loss_val2 = history1.history['val_loss']
-
-        loss_val = loss_val1 + loss_val2 
+        loss_val = history.history['val_loss'] + history1.history['val_loss']
        
         epochs = range(0,Total_epochs_so_far)
         plt.plot(epochs, loss_train, 'g', label='Training loss')
@@ -401,8 +389,5 @@ Procedures to load Landmark dataset in Google Colab used for Training and Testin
 30. White house
 
 
-
-![](https://github.com/ShamSinha/Image-Recognition-Website/blob/branch1/images/1.png?raw=true)
-![](https://github.com/ShamSinha/Image-Recognition-Website/blob/branch1/images/2.png?raw=true)
 
 
