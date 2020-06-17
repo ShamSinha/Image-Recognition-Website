@@ -150,6 +150,7 @@ Procedures to load Landmark dataset in Google Colab used for Training and Testin
         
 5. After successful mount the drive run this to load dataset
         
+        import numpy as np
         npzfile = np.load('/content/drive/My Drive/Landmark_data30.npz')
         X = npzfile['arr_0']
         Y = npzfile['arr_1']
