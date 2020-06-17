@@ -69,6 +69,12 @@ This repository bundles a web application with following functionalities ,
 1.  **Main/Predict Route :** 
        - We can upload images to get Face recognition , detection outputs and monument recognition outputs.
        
+      ![](https://github.com/ShamSinha/Image-Recognition-Website/blob/branch_manideep/Images/image17.png)
+      ![](https://github.com/ShamSinha/Image-Recognition-Website/blob/branch_manideep/Images/image19.png)
+      ![](https://github.com/ShamSinha/Image-Recognition-Website/blob/branch_manideep/Images/image18.png)
+      ![](https://github.com/ShamSinha/Image-Recognition-Website/blob/branch_manideep/Images/image20.png)
+      ![](https://github.com/ShamSinha/Image-Recognition-Website/blob/branch_manideep/Images/image21.png)
+      ![](https://github.com/ShamSinha/Image-Recognition-Website/blob/branch_manideep/Images/image22.png)
       <img src='Images/image17.png'>
       <img src='Images/image19.png'>
       <img src='Images/image18.png'>
