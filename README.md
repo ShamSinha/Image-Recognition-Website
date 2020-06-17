@@ -29,6 +29,8 @@
 
 ![](https://github.com/ShamSinha/Image-Recognition-Website/blob/branch1/images/Screenshot%20(192).png)
 
+![Per-class precision, recall , f1-score on our validation set](https://github.com/ShamSinha/Image-Recognition-Website/blob/branch1/images/Screenshot%20(195).png)
+
 Procedures to load our **Landmark recognition Model** in Google Colab 
 1. Open this [link](https://drive.google.com/file/d/1tyyJA27U_3oNddpM0HKQ3ejYFzCSxOR5/view?usp=sharing) to get our Landmark recognition model in Google Drive.
 2. Open Shared with me within Google Drive and use Add Shortcut to Drive option to make shortcut of ***Model30v3_75_split_70_30.h5*** file in My Drive.
