@@ -1,3 +1,11 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+"""
+Created on Sat May 30 20:09:07 2020
+
+@author: manideep
+"""
+
 from __future__ import division, print_function
 # coding=utf-8
 import sys
@@ -8,7 +16,7 @@ import numpy as np
 import tensorflow as tf
 import random
 
-print("Num GPUs Available: ", len(tf.config.experimental.list_physical_devices('GPU')))
+
 # Keras
 from tensorflow.keras.applications.imagenet_utils import preprocess_input, decode_predictions
 from tensorflow.keras.models import load_model
@@ -31,12 +39,6 @@ from yolo_predict import *
 
 import matplotlib.pyplot as plt
 
-from tensorflow.compat.v1 import ConfigProto
-from tensorflow.compat.v1 import InteractiveSession
-
-config = ConfigProto()
-config.gpu_options.allow_growth = True
-session = InteractiveSession(config=config)
 
 database = {}
 
@@ -68,10 +70,11 @@ def who_is_it(face, database, model):
         if (dist<min_dist):
             min_dist = dist
             identity = name    
-    if min_dist > 0.55:
+    if min_dist > 1:
         identity=""
         
     return min_dist, identity
+
 
 
 ########
@@ -80,9 +83,9 @@ app = Flask(__name__)
 basepath = os.path.dirname(__file__)
 facedata = os.path.join(basepath, 'haarcascade_frontalface_default.xml')
 
-def returnFaces(image1):  
+def returnFaces(image):  
     cascade = cv2.CascadeClassifier(facedata)   
-    gray_image = cv2.cvtColor(image1, cv2.COLOR_BGR2GRAY)
+    gray_image = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
     faces = cascade.detectMultiScale(gray_image,1.1, 4)           
     return faces
      
@@ -92,7 +95,7 @@ def index():
     basepath = os.path.dirname(__file__)
     directory = os.path.join(basepath, 'database')
     for face_dir in os.listdir(directory):
-        
+        count=0
         for face_file in os.listdir(os.path.join(directory,face_dir)): 
             face_path = os.path.join(directory ,face_dir, face_file)
             face=cv2.imread(face_path,1)
@@ -108,6 +111,7 @@ def back_to_predict():
     return render_template('index.html')
 
 
+
 @app.route('/predict', methods=[ 'GET','POST'])
 def upload():
     if request.method == 'POST':
@@ -120,10 +124,26 @@ def upload():
             if os.path.exists(os.path.join(basepath,'yolo',filename)):
                 os.remove(os.path.join(basepath,'yolo',filename))
             
+            
+        landmarks = ['Angkor Wat', 'Arc de Triomphe', 'Big Ben', 'Burj Al Arab', 'Burj Khalifa', 'Charminar', 'Chichen Itza', 'Christ The Redeemer', 'Colosseum', 'Effiel tower', 'Empire state building', 'Golden Gate Bridge', 'Golden Temple', 'Hawa Mahal', 'India Gate', 'Leaning Tower of Pisa', 'Lotus temple', 'Mount Rushmore', 'Petronas Tower', 'Pyramid of Giza', 'Qutub Minar', 'Red Fort', 'Statue of Liberty', 'Stone Henge', 'Sydney opera house', 'Taj Hotel', 'Taj Mahal', 'Tower Bridge', 'Victoria Memorial', 'White house']
+        landmark_model = load_model(os.path.join(basepath,'Model30v3_75_split_70_30.h5'))
+        classes= landmarks
+           
         f = request.files['file']
         filename=secure_filename(f.filename)
         file_path = os.path.join( basepath, 'uploads',filename)
         f.save(file_path)
+        
+        image2=cv2.imread(file_path,1)
+        img2 = cv2.resize(image2,(224,224))
+        x= np.array(img2)/255
+        x=np.expand_dims(x,axis=0)
+        y= landmark_model.predict(x)
+                
+        result1 = classes[np.argmax(y)]
+        if(np.max(y)<0.2):
+            result1=""
+        
         img=our_result(file_path)
         #plt.imshow(img)
         new_dir = os.path.join(basepath,'yolo')
@@ -144,12 +164,19 @@ def upload():
             face_image=cv2.resize(face_image,(96,96))
             min_dist,identity = who_is_it(face_image, database, FRmodel)
             result = result+str(identity)+ " "
+            
+        value = request.form['options']
+        
+        if (value=="Face Recognition"):
+            result1=""
+        if (value=="Monument Recognition"):
+            result==""
         
         if os.path.exists(file_path):
             os.remove(file_path)
         if(flag==0 and  len(result.strip())==0):
             result="No person is in Database !!"
-        return jsonify({"result": result , "our_url" : img_url })
+        return jsonify({"result": result , "result1" : result1 , "our_url" : img_url })
     return None
 
 
@@ -160,11 +187,7 @@ def addDatabase():
 @app.route("/yolo/<temp_name>", methods=['GET','POST'])
 def for_img(temp_name):
     return send_from_directory("yolo/",temp_name)
-'''
-@app.route('/my_json', methods=['GET'])
-def Json():
-    return jsonify({"result":"hi"})
-'''
+
 
 @app.route('/addStatus', methods =['GET','POST'])
 def add():
@@ -211,10 +234,37 @@ def add():
 
 @app.route('/database', methods = ['GET' , 'POST'])
 def show():
+    if request.method == 'GET':
+        basepath = os.path.dirname(__file__)
+        person_names = os.listdir(os.path.join(basepath,'database'))
+        
+        return render_template('showdatabase.html', person_names = person_names,result="",flag=1)
+    if request.method == 'POST':
+        basepath = os.path.dirname(__file__)
+        for key, value in request.form.items():
+            if key == "personName":
+                person_name = value
+                for person in os.listdir(os.path.join(basepath,'database',person_name)):
+                    if(os.path.exists(os.path.join(basepath,'database',person_name,person))):
+                        os.remove(os.path.join(basepath,'database',person_name,person))
+                os.rmdir(os.path.join(basepath,'database',person_name))
+                            
+                list_database = database.keys();
+                list_database_to_be_removed = []
+                for i in list_database:
+                    if i.rsplit("_",1)[0] == person_name:
+                        list_database_to_be_removed.append(i)
+                        
+                for j in list_database_to_be_removed:
+                    del database[j]
+                 
+                #result = person_name.upper() + " Successfully removed from Database"
+      
     basepath = os.path.dirname(__file__)
     person_names = os.listdir(os.path.join(basepath,'database'))
+    result= "Mr/Ms. "+person_name.capitalize() + " was successfully removed from our Database"
+    return render_template('showdatabase.html', person_names = person_names,result=result,flag=0)
     
-    return render_template('showdatabase.html', person_names = person_names)
   
 @app.route('/showAllInDatabase/<person>', methods = ['GET' , 'POST'])
 def showAll(person):
@@ -227,7 +277,7 @@ def showAll(person):
 def send_all_image(person,filename):
     return send_from_directory("database/"+ person, filename)
 
-
+'''
 
 @app.route("/removed", methods=["GET", "POST"])
 def remove():
@@ -256,7 +306,6 @@ def remove():
     person_names = os.listdir(os.path.join(basepath,'database'))
     
     return render_template('showdatabase.html', person_names = person_names)
-
+'''
 if __name__ == '__main__':
     app.run(debug =True)
-
