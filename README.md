@@ -309,7 +309,7 @@ Procedures to load Landmark dataset in Google Colab used for Training and Testin
         
          # fits the model on batches with real-time data augmentation:
          # model.fit return history1
-        history1 = model.fit(datagen.flow(X_train, Y_train, batch_size=32), epochs=20 , validation_data = datagen2.flow(X_dev, Y_dev, batch_size=32) , callbacks=[best_model])
+        history1 = model.fit(datagen.flow(X_train, Y_train, batch_size=32), epochs=20 , validation_data = (X_dev, Y_dev) , callbacks=[best_model])
         
         
 9. To plot training and validation set accuracy vs epochs run
