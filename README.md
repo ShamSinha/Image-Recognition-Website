@@ -95,9 +95,9 @@ Procedures to load Landmark dataset in Google Colab used for Training and Testin
         npzfile = np.load('/content/drive/My Drive/Landmark_data30.npz')
         X = npzfile['arr_0']
         Y = npzfile['arr_1']
-        np.random.seed(150)
+        np.random.seed(300)
         np.random.shuffle(X)
-        np.random.seed(150)
+        np.random.seed(300)
         np.random.shuffle(Y)
         
 5. You can use this code in Colab to split the dataset into train, dev and test set 
@@ -140,26 +140,30 @@ Procedures to load Landmark dataset in Google Colab used for Training and Testin
 
 ## We can also retrain our model if we want to include more landmarks 
 
-1.  Use above steps to import our Landmark recognition model in Colab. After successful import run this
-        
-        model = 
+1.  Use above steps to load our Landmark recognition model in Colab. 
         
                                 
-3.  Add the modified softmax layer which have size equal to number of classes
+2.  Add the modified softmax layer which have size equal to number of classes
         
-        #
+        
         classes  = 40    # in our new case
         
-        X = Flatten()(pre_trained_model.output)
-        X = Dense(1024, activation='relu', kernel_initializer = glorot_uniform(seed=0))(X)
-        X = layers.Dropout(0.5)(X)                  
-        X = Dense(classes, activation='softmax', name='fc' + str(classes), kernel_initializer = glorot_uniform(seed=0))(X)    
-        model = Model( pre_trained_model.input, X) 
+        # Load the model and make modifications to it
+        loaded_model.layers.pop()
 
-        model.compile(optimizer='adam', loss='categorical_crossentropy', metrics=['accuracy'])
+        # Create your new model with the one layers removed and transfer weights
+        
+        new_dense_layer = Dense(classes, activation='softmax', name='fc' + str(classes))(loaded_model.layers[-1].output)
+        new_model = Model(inputs=loaded_model.inputs, outputs= new_dense_layer)
+        
+        new_model.summary()
+        
+        new_model.save('new_model_40.h5')
+        
+        new_model.compile(optimizer='adam', loss='categorical_crossentropy', metrics=['accuracy'])
         
         
-4. Now we load our dataset procedures are given above. We split the data in 90% train and 10% test set.
+4. Now we load our dataset and split it as shown above.
 
 5. Use ImageDataGenerator if we need to augment the data
 
@@ -174,11 +178,72 @@ Procedures to load Landmark dataset in Google Colab used for Training and Testin
    Here we save the model which have high validation accuracy
    
         from keras.callbacks import ModelCheckpoint
-        best_model = ModelCheckpoint("/content/drive/My Drive/model.h5",
+        best_model = ModelCheckpoint("/content/drive/My Drive/new_model_40.h5",
                              monitor='val_accuracy',
                              mode='max',
                              save_best_only=True,
                              verbose=1)
+7. To train the new_model_40 run
+
+        # fits the model on batches with real-time data augmentation:
+        # model.fit return history 
+        history = model.fit(datagen.flow(X_train, Y_train, batch_size=32), epochs=20 , validation_data = datagen2.flow(X_dev, Y_dev, batch_size=32) , callbacks=[best_model])
+        
+8. To train again this model with epochs = 20 run 
+        
+         # fits the model on batches with real-time data augmentation:
+         # model.fit return history1
+        history1 = model.fit(datagen.flow(X_train, Y_train, batch_size=32), epochs=20 , validation_data = datagen2.flow(X_dev, Y_dev, batch_size=32) , callbacks=[best_model])
+        
+        
+9. To plot training and validation set accuracy vs epochs run
+
+        Total_epochs_so_far = 20 + 20  # we fit twice with each 20 epochs
+        import pandas as pd
+        from sklearn.model_selection import train_test_split
+        import matplotlib.pyplot as plt
+
+        acc_train1 = history.history['accuracy']
+        acc_train2 = history1.history['accuracy']
+
+        acc_train = acc_train1 + acc_train2 
+       
+        acc_val1 = history.history['val_accuracy']
+        acc_val2 = history1.history['val_accuracy']
+        
+        acc_val = acc_val1 + acc_val2
+
+        epochs = range(0,Total_epochs_so_far)
+        # now plot 
+        plt.plot(epochs, acc_train, 'g', label='Training accuracy')
+        plt.plot(epochs, acc_val, 'b', label='validation accuracy')
+        plt.title('Training and Validation accuracy')
+        plt.xlabel('Epochs')
+        plt.ylabel('Accuracy')
+        plt.legend()
+        plt.show()
+        
+10. To plot training and validation loss vs epochs run
+
+        loss_train1 = history.history['loss']
+        loss_train2 = history1.history['loss']
+
+        loss_train = loss_train1 + loss_train2 
+
+        loss_val1 = history.history['val_loss']
+        loss_val2 = history1.history['val_loss']
+
+        loss_val = loss_val1 + loss_val2 
+       
+        epochs = range(0,Total_epochs_so_far)
+        plt.plot(epochs, loss_train, 'g', label='Training loss')
+        plt.plot(epochs, loss_val, 'b', label='validation loss')
+        plt.title('Training and Validation loss')
+        plt.xlabel('Epochs')
+        plt.ylabel('Loss')
+        plt.legend()
+        plt.show()
+        
 
 ### List of Landmarks our model can recognize
 1. Angkor Wat
