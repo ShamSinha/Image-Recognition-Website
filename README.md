@@ -52,26 +52,26 @@ This repository bundles a web application with following functionalities ,
        - We can upload images to get Face recognition , detection outputs and monument recognition outputs.
        
       <img src='Images/image1.png'>
-      <img src='Images/image2,png'>
-      <img src='Images/image3,png'>
-      <img src='Images/image4,png'>
-      <img src='Images/image14,png'>
-      <img src='Images/image15,png'>
+      <img src='Images/image2.png'>
+      <img src='Images/image3.png'>
+      <img src='Images/image4.png'>
+      <img src='Images/image14.png'>
+      <img src='Images/image15.png'>
 2.  **Database page :** 
        - We can have a look at the list of persons in our database. 
        - We have a choice to remove them too.
        - On selecting a person we are redirected to a page containing list of all images corresponding to that person.
 
-      <img src='Images/image5,png'>
-      <img src='Images/image6,png'>
-      <img src='Images/image16,png'>
-      <img src='Images/image8,png'>
+      <img src='Images/image5.png'>
+      <img src='Images/image6.png'>
+      <img src='Images/image16.png'>
+      <img src='Images/image8.png'>
 3.  **Add People :**
        - We can add people to our database from this page .
        - Just upload person name and an image of that person , thats it , the person is added to our database. 
 
-      <img src='Images/image9,png'>
-      <img src='Images/image10,png'>
+      <img src='Images/image9.png'>
+      <img src='Images/image10.png'>
       <img src='Images/image11.png'>
 
 
