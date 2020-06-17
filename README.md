@@ -107,7 +107,7 @@ Procedures to load our **Landmark recognition Model** in Google Colab
 
       ![](https://github.com/ShamSinha/Image-Recognition-Website/blob/branch1/images/Screenshot%20(195).png)
         
-8. You can our model to recognise Landmarks in Colab itself run this and upload your image.
+8. You can use our trained model to recognise Landmarks in Colab itself run this and upload your image.
 
         
         from google.colab import files
