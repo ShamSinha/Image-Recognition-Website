@@ -67,7 +67,7 @@ This repository bundles a web application with following functionalities ,
       <img src='Images/image16.png'>
       <img src='Images/image8.png'>
 
-3.  **Add People Route:**
+3.  **Add People Route :**
        - We can add people to our database from this page .
        - Just upload person name and an image of that person , thats it , the person is added to our database. 
 
@@ -75,9 +75,8 @@ This repository bundles a web application with following functionalities ,
       <img src='Images/image10.png'>
       <img src='Images/image11.png'>
 
-4. **Remove people from database**
-
-       - We can remove people from our Database from Database page.
+4. **Remove people from database :**
+      - We can remove people from our Database from Database page.
 
       <img src='Images/image12.png'>
       <img src='Images/image13.png'>
