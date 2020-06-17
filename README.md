@@ -10,11 +10,24 @@ This repository bundles a web application with following functionalities ,
 ## Installations 
 
 1. [Install Anaconda ](https://docs.anaconda.com/anaconda/install/)
-2. In Anaconda navigator, go to environments tab checkout the packages which are not installed and install the following ,
-
-    - Open CV
-    - Tensor-flow 2.0
-3. All other required packages are pre-installed in Anaconda.
+2. There are two ways to install dependencies required for our website.
+   - In Anaconda navigator, go to environments tab checkout the packages which are not installed and install the following,
+     - Open CV
+     - Tensor-flow 2.0
+    
+   - Use Anaconda Prompt command line to install 
+     - Install OpenCV library
+   
+           conda install -c conda-forge opencv
+     - Install Tensorflow-cpu  
+   
+           conda install tensorflow-cpu
+     - Open SPYDER 
+         
+           spyder
+4. All other required packages are pre-installed in Anaconda.
+5. Now clone this github master branch repo in your local machine.
+6. Run app.py in spyder 
 
 ## Usage 
 
