@@ -23,15 +23,15 @@
 ## Landmarks Recognition Model
 
 
-**These are the 30 landmarks that our Landmark recognition model written in Keras can recognise with 77.55% accuracy in validation set which comprise of 579 images and 97.07% in training set which comprise of 5324 images.**
+**These are the 30 landmarks that our Landmark recognition model written in Keras can recognise with 74.58% accuracy in validation set which comprise of 1770 images and 99.83% in training set which comprise of 4133 images.**
 
 
 
 ![](https://github.com/ShamSinha/Image-Recognition-Website/blob/branch1/images/plotaccvsepoch.png?raw=true)
 
 Procedures to load our **Landmark recognition Model** in Google Colab 
-1. Open this [link](https://drive.google.com/file/d/1VtiL6fqkCT_ehzRP2lBPo71hqL-wyC5c/view?usp=sharing) to get our Landmark recognition model in google drive.
-2. Open Shared with me within Google Drive and use Add Shortcut to Drive option to make shortcut of ***Model30v2_77.h5*** file in My Drive.
+1. Open this [link](https://drive.google.com/file/d/1tyyJA27U_3oNddpM0HKQ3ejYFzCSxOR5/view?usp=sharing) to get our Landmark recognition model in Google Drive.
+2. Open Shared with me within Google Drive and use Add Shortcut to Drive option to make shortcut of ***Model30v3_75_split_70_30.h5*** file in My Drive.
 3. Open Google Colab and run
 
         from google.colab import drive
@@ -40,13 +40,17 @@ Procedures to load our **Landmark recognition Model** in Google Colab
 4. After successful mount the drive run this to load model
         
         from keras.models import load_model
-        model = load_model('/content/drive/My Drive/Model30v2_77.h5')
+        model = load_model('/content/drive/My Drive/Model30v3_75_split_70_30.h5')
         
 5. To see our model layers run
         
         model.summary()
         
-6. You can recognise Landmarks in Colab itself run this and upload your image
+6. Per class precision, recall and f1-score on validation-set which comprise of 1770 images
+
+
+        
+7. You can recognise Landmarks in Colab itself run this and upload your image
 
         
         from google.colab import files
@@ -134,21 +138,17 @@ Procedures to load Landmark dataset in Google Colab used for Training and Testin
         y_test = np.argmax(Y_test, axis=1) # Convert one-hot to index
         print(classification_report(y_test, y_pred))
 
-## We also applied Transfer Learning to increase the accuracy of Landmark Recognition model
+## We can also retrain our model if we want to include more landmarks 
 
-1. First we import the Inceptionv3 model 
-
-        from keras.applications.inception_v3 import InceptionV3
+1.  Use above steps to import our Landmark recognition model in Colab. After successful import run this
         
-2. Then load the pretrained model 
-
-        pre_trained_model = InceptionV3(input_shape = (224,224, 3), # Shape of our images
-                                include_top = False, # Leave out the last fully connected layer
-                                weights = 'imagenet')
+        model = 
+        
                                 
 3.  Add the modified softmax layer which have size equal to number of classes
         
-        classes  = 30    # in our case
+        #
+        classes  = 40    # in our new case
         
         X = Flatten()(pre_trained_model.output)
         X = Dense(1024, activation='relu', kernel_initializer = glorot_uniform(seed=0))(X)
