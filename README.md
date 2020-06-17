@@ -85,9 +85,7 @@ This repository bundles a web application with following functionalities ,
       ![](https://github.com/ShamSinha/Image-Recognition-Website/blob/branch_manideep/Images/image5.png)
       ![](https://github.com/ShamSinha/Image-Recognition-Website/blob/branch_manideep/Images/image16.png)
       ![](https://github.com/ShamSinha/Image-Recognition-Website/blob/branch_manideep/Images/image8.png)
-      <img src='Images/image5.png'>
-      <img src='Images/image16.png'>
-      <img src='Images/image8.png'>
+     
 
 3.  **Add People Route :**
        - We can add people to our database from this page .
