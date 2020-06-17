@@ -212,11 +212,15 @@ Procedures to load Landmark dataset in Google Colab used for Training and Testin
         
         new_model.compile(optimizer='adam', loss='categorical_crossentropy', metrics=['accuracy'])
         
-                
-3. To know total number of images as well as per-class present in your new dataset run
+ 
+3. Open this [link](https://drive.google.com/drive/folders/1BhAahnGUM2C-0FTiTE5wrqdifcjHY5lj?usp=sharing) to get Landmark_Image_Dataset used in training of our model
+
+4. Now I want to include 10 new classes then add folders of it in above Landmark_Image_Dataset folder and make shortcut of it in My Drive
+
+4. To know total number of images as well as per-class present in your new dataset run
 
         import os
-        rootdir = '/content/drive/My Drive/new_dataset'    # directory where your new classes are present as their respective folder
+        rootdir = '/content/drive/My Drive/Landmark_Image_Dataset'    # Landmark_Image_Dataset folder path
         number_classes = len(os.listdir(rootdir))
         total_images = 0
         i = 0
@@ -236,7 +240,7 @@ Procedures to load Landmark dataset in Google Colab used for Training and Testin
   4. We create our dataset using below shown technique
 
          from keras.preprocessing.image import ImageDataGenerator
-         rootdir = '/content/drive/My Drive/new_dataset'    # directory where your new classes are present as their respective folder
+         
          total_datagen = ImageDataGenerator(
                 rescale=1.0/255,
                 )
