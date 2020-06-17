@@ -49,6 +49,12 @@ Procedures to load our **Landmark recognition Model** in Google Colab
         
 6. This is the model we use to train our landmark dataset written in Keras
         
+        from keras.layers import Input, Add, Dense, Activation, ZeroPadding2D, BatchNormalization, Flatten, Conv2D, AveragePooling2D, MaxPooling2D, GlobalMaxPooling2D,Dropout,LeakyReLU
+        from keras.models import Model
+        import keras.backend as K
+        K.set_image_data_format('channels_last')
+        K.set_learning_phase(1)
+        
         def Landmarkmodelnew(input_shape = (224, 224, 3), classes = 30):
     
             X_input = Input(input_shape)
