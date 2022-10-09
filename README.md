@@ -115,7 +115,7 @@ This repository bundles a web application with following functionalities ,
 
 
 Procedures to load our **Landmark recognition Model** in Google Colab 
-1. Open this [link](https://drive.google.com/file/d/1tyyJA27U_3oNddpM0HKQ3ejYFzCSxOR5/view?usp=sharing) to get our Landmark recognition model in Google Drive.
+1. Open this [link](https://drive.google.com/file/d/10FZEO86_JyPkWSSw7XLnbPXi2WvAc7Tb/view?usp=sharing) to get our Landmark recognition model in Google Drive.
 2. Open Shared with me within Google Drive and use Add Shortcut to Drive option to make shortcut of ***Model30v3_75_split_70_30.h5*** file in My Drive.
 3. Open Google Colab and run
 
